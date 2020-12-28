@@ -1,7 +1,8 @@
 import 'dart:convert';
-import 'word.dart';
 
-class JsonWordDecoder {
+import 'package:learn_words/providers/word.dart';
+
+class JsonHttpWordDecoder extends JsonEncoder{
 
   static Word decode(String responseBody) {
     Map<String, dynamic> json = jsonDecode(responseBody);

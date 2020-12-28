@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:learn_words/constants.dart';
-import 'package:learn_words/providers/json_word_decoder.dart';
 
-import 'word.dart';
+import '../providers/word.dart';
+import 'json/json_http_word_decoder.dart';
 
 class HttpWords {
   static HttpWords _instance;
@@ -39,7 +39,6 @@ class HttpWords {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-      return JsonWordDecoder.decode(stateResponse.body);
-
+      return JsonHttpWordDecoder.decode(stateResponse.body);
   }
 }

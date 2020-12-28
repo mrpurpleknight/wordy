@@ -2,13 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:learn_words/constants.dart';
+import 'package:learn_words/providers/words.dart';
 import 'package:learn_words/widgets/search_input_field.dart';
 import 'package:learn_words/widgets/word_tile_small.dart';
+import 'package:provider/provider.dart';
 
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final Words words = Provider.of<Words>(context);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
@@ -36,7 +39,7 @@ class MainScreen extends StatelessWidget {
                       child: Text(
                         'Start your research',
                         style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 24,
                             color: Colors.white,
                             fontWeight: FontWeight.w900),
                       ),
@@ -49,13 +52,13 @@ class MainScreen extends StatelessWidget {
                   children: [
                     Container(
                       margin: EdgeInsets.only(
-                          top: size.height * 0.1,
+                          top: size.height * 0.125,
                           left: 32,
-                          bottom: size.height * 0.03),
+                          bottom: size.height * 0.01),
                       child: Text(
                         'Your words',
                         style: TextStyle(
-                            fontSize: 26,
+                            fontSize: 24,
                             color: Colors.white,
                             fontWeight: FontWeight.w900),
                       ),
@@ -64,10 +67,15 @@ class MainScreen extends StatelessWidget {
                       scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 20),
-                            child: SmallWordTile(),
-                          ),
+                          ...words
+                              .getLast5Word()
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.all(20),
+                                  child: SmallWordTile(e),
+                                ),
+                              )
+                              .toList(),
                         ],
                       ),
                     ),

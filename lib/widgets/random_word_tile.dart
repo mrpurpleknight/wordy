@@ -1,16 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_words/providers/http_words.dart';
 import 'package:learn_words/providers/word.dart';
 import 'package:provider/provider.dart';
 
-class WordTile extends StatefulWidget {
-  @override
-  _WordTileState createState() => _WordTileState();
-}
-
-class _WordTileState extends State<WordTile> {
-
+class RandomWordTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -20,7 +13,17 @@ class _WordTileState extends State<WordTile> {
       height: size.height * 0.6,
       width: size.width * 0.9,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10), color: Colors.white),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12.withOpacity(0.3),
+            spreadRadius: 2,
+            blurRadius: 2,
+            offset: Offset(2, 4), // changes position of shadow
+          ),
+        ],
+      ),
       child: FutureBuilder<Word>(
           future: future,
           builder: (context, snapshot) {

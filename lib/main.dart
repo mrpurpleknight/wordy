@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn_words/constants.dart';
-import 'package:learn_words/providers/http_words.dart';
+import 'package:learn_words/business/http_words.dart';
 import 'package:learn_words/screens/main_screen.dart';
-import 'package:learn_words/screens/word_page_view.dart';
+import 'package:learn_words/screens/main_page_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
               fontStyle: FontStyle.italic),
         ),
       ),
-      home: WordPageView(),
+      home: MainPageView(),
     );
   }
 }
