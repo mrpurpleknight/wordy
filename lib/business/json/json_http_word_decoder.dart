@@ -9,7 +9,7 @@ class JsonHttpWordDecoder extends JsonEncoder{
     List wordResult = json['results'];
     String name = _getName(json);
 
-    if(wordResult == null)
+    if(wordResult == null || wordResult.length == 0)
       return null;
 
     for (int i = 0; i < wordResult.length; i++) {

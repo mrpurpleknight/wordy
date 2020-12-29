@@ -1,13 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:learn_words/business/http_words.dart';
 
-class Word with ChangeNotifier {
+class Word {
   final String name;
   final String partOfSpeech;
   final String definition;
   final String examplePhrase;
+  final _controller = StreamController<Word>.broadcast();
 
   Word({
     this.name,
@@ -18,6 +19,10 @@ class Word with ChangeNotifier {
 
   static Future<Word> random() async {
     return HttpWords.instance.randomWord;
+  }
+  
+  get stream {
+    return _controller.stream;
   }
 
   factory Word.fromJson(Map<String, dynamic> json) {

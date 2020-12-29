@@ -35,12 +35,10 @@ class WordsRepository extends Repository<Word>{
     for(int i = 0; i < list.length; i++) {
       if(list.elementAt(i) is File && list.elementAt(i).path.contains('.json')) {
         final File file = File((list.elementAt(i) as File).path);
-        String contents = file.readAsStringSync();
-        Word toInsert = Word.fromJson(jsonDecode(contents));
+        Word toInsert = Word.fromJson(jsonDecode(file.readAsStringSync()));
         toReturn.add(toInsert);
       }
     }
-
     return toReturn;
   }
 

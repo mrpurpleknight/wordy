@@ -21,7 +21,7 @@ class MainScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 32, bottom: 50),
+                  padding: const EdgeInsets.only(top: 20, left: 20, bottom: 50),
                   child: Text(
                     'Wordy',
                     style: TextStyle(
@@ -55,13 +55,15 @@ class MainScreen extends StatelessWidget {
                           top: size.height * 0.125,
                           left: 32,
                           bottom: size.height * 0.01),
-                      child: Text(
-                        'Your words',
-                        style: TextStyle(
-                            fontSize: 24,
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900),
-                      ),
+                      child: (!words.isEmpty())
+                          ? Text(
+                              'Your words',
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w900),
+                            )
+                          : Center(),
                     ),
                     SingleChildScrollView(
                       scrollDirection: Axis.horizontal,

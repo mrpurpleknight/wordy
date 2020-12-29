@@ -34,6 +34,13 @@ class Words with ChangeNotifier {
     return _wordsList.contains(word);
   }
 
+  bool isEmpty() {
+    if(_wordsList != null)
+      return _wordsList.isEmpty;
+
+    return false;
+  }
+
   Word get(int index) {
     return _wordsList.elementAt(index);
   }

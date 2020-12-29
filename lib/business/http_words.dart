@@ -30,6 +30,15 @@ class HttpWords {
     return toReturn;
   }
 
+  Future<List<Word>> getRandomWords(int number) async{
+    List<Word> toReturn;
+    while(toReturn.length != number) {
+      randomWord.then((value) => toReturn.add(value));
+    }
+
+    return toReturn;
+  }
+
    Future<Word> _getWordFromName(String name) async {
       http.Response stateResponse = await _client.get(
         '$vocabularyWordUrl$name',
