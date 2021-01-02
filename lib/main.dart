@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:learn_words/business/http_words.dart';
 import 'package:learn_words/constants.dart';
 import 'package:learn_words/screens/main_page_view.dart';
 import 'package:learn_words/screens/word_detail_screen.dart';
 import 'package:learn_words/screens/words_list_screen.dart';
 
 void main() {
+  HttpWords.instance.getSuggestionsFromWordName('observa', 3).then((value) => print(value));
   runApp(MyApp());
 }
 

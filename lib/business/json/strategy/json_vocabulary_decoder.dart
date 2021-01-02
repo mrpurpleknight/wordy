@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:learn_words/business/json/strategy/json_decoder_strategy.dart';
 import 'package:learn_words/providers/word.dart';
 
-class JsonHttpWordDecoder extends JsonEncoder{
+class JsonVocabularyDecoder extends JsonDecoderStrategy {
 
-  static Word decode(String responseBody) {
-    Map<String, dynamic> json = jsonDecode(responseBody);
+  @override
+  dynamic decode() {
+    Map<String, dynamic> json = jsonDecode(toDecode);
     List wordResult = json['results'];
     String name = _getName(json);
 
@@ -29,21 +31,21 @@ class JsonHttpWordDecoder extends JsonEncoder{
         examplePhrase: null);
   }
 
-  static String _getName(Map<String, dynamic> result) {
+  String _getName(Map<String, dynamic> result) {
     return result['word'];
   }
 
-  static String _getDefinition(Map<String, dynamic> result) {
+  String _getDefinition(Map<String, dynamic> result) {
     return result['definition'];
   }
 
-  static String _getPartOfSpeech(Map<String, dynamic> result) {
+  String _getPartOfSpeech(Map<String, dynamic> result) {
     if(result['partOfSpeech'] != null)
       return result['partOfSpeech'];
     return 'undef';
   }
 
-  static String _getExample(Map<String, dynamic> result) {
+  String _getExample(Map<String, dynamic> result) {
     if (result['examples'] != null) {
       return result['examples'][0];
     }

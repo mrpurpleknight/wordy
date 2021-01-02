@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 20, bottom: 50),
+                  padding: const EdgeInsets.only(top: 21, left: 32, bottom: 50),
                   child: Text(
                     'Wordy',
                     style: TextStyle(
