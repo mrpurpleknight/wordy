@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:learn_words/constants.dart';
-import 'package:learn_words/business/http_words.dart';
-import 'package:learn_words/screens/main_screen.dart';
 import 'package:learn_words/screens/main_page_view.dart';
+import 'package:learn_words/screens/words_list_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -50,6 +49,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: MainPageView(),
+      routes: {
+        WordsListScreen.routeName: (ctx) => WordsListScreen(),
+      },
     );
   }
 }

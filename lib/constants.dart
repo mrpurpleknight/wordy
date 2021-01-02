@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 const Color gradientBegin = Color(0xff6751b5);
-const Color gradientEnd = Color(0xff9354b9);
+const Color gradientMed = Color(0xff9354b9);
+const Color gradientEnd = Color(0xFFCC95C0);
 const Color backgroundColor = Color(0xff6751b5);
 const Color primaryTextColor = Color(0xff414c6b);
 const Color secondaryTextColor = Color(0xffe4979e);

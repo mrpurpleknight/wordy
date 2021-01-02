@@ -14,10 +14,11 @@ class MainPageView extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (_) => Words(),
+          create: (_) => Words.instance,
         ),
       ],
       child: PageView(
+        scrollDirection: Axis.vertical,
         children: [
           MainScreen(),
           RandomWordPageView(),

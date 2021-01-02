@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:learn_words/business/http_words.dart';
 import 'package:learn_words/providers/word.dart';
 
 class SmallWordTile extends StatelessWidget {
   final Word word;
+
 
   SmallWordTile(this.word);
 

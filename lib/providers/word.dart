@@ -8,7 +8,6 @@ class Word {
   final String partOfSpeech;
   final String definition;
   final String examplePhrase;
-  final _controller = StreamController<Word>.broadcast();
 
   Word({
     this.name,
@@ -21,9 +20,6 @@ class Word {
     return HttpWords.instance.randomWord;
   }
   
-  get stream {
-    return _controller.stream;
-  }
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(

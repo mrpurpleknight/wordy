@@ -7,16 +7,28 @@ class Words with ChangeNotifier {
   List<Word> _wordsList;
   final WordsRepository _repository;
 
-  Words() : _repository = WordsRepository.instance {
+  static Words _instance;
+
+  Words._internal() : _repository = WordsRepository.instance {
     _repository.readAll().then((value) {
       _wordsList = value;
       notifyListeners();
     });
   }
 
+  static Words get instance {
+    if(_instance == null)
+      _instance = Words._internal();
+    return _instance;
+  }
+
   int get size {
     if(_wordsList == null) return 0;
     return _wordsList.length;
+  }
+
+  List<Word> getList() {
+    return _wordsList;
   }
 
   void addWord(Word word) {
