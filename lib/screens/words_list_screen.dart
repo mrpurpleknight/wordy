@@ -42,21 +42,23 @@ class WordsListScreen extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.pin,
                     title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Text(
                           'Words',
                           style: TextStyle(
+                              fontFamily: 'Merriweather',
+                              fontWeight: FontWeight.w800,
                               fontSize: 26,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w900),
+                              color: Colors.white),
                         ),
                         Padding(
-                          padding: const EdgeInsets.only(left: 12),
+                          padding: const EdgeInsets.only(left: 12, bottom: 3),
                           child: SvgPicture.asset(
                             'assets/images/vocabulary.svg',
-                            color: Colors.white70,
-                            width: 29,
-                            height: 29,
+                            color: Colors.white,
+                            width: 30,
+                            height: 30,
                           ),
                         ),
                       ],

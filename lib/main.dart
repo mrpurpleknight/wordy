@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             headline1: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.w800,
-                fontSize: 20,
+                fontSize: 19,
                 color: Colors.black),
             bodyText1: TextStyle(
                 fontFamily: 'Merriweather',
