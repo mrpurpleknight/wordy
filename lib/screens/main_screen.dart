@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
-import 'package:learn_words/constants.dart';
 import 'package:learn_words/providers/words.dart';
 import 'package:learn_words/screens/words_list_screen.dart';
 import 'package:learn_words/widgets/search_input_field.dart';

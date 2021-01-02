@@ -29,6 +29,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
               padding: const EdgeInsets.only(top: 40, left: 40, right: 40, bottom: 25),
               child: RandomWordTile(),
             ),
+
             ToolBar(),
           ],
         ),

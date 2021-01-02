@@ -23,7 +23,7 @@ class WordsListScreen extends StatelessWidget {
                   elevation: 10,
                   pinned: true,
                   expandedHeight: 150.0,
-                  backgroundColor: gradientMed,
+                  backgroundColor: Theme.of(context).accentColor,
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,

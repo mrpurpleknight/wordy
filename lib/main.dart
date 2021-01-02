@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         visualDensity: VisualDensity.adaptivePlatformDensity,
         primaryColor: Colors.deepPurpleAccent,
+        accentColor: accentColor,
         backgroundColor: backgroundColor,
         textTheme: ThemeData.light().textTheme.copyWith(
             headline1: TextStyle(
