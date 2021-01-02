@@ -42,6 +42,19 @@ class WordsRepository extends Repository<Word>{
     return toReturn;
   }
 
+
+  @override
+  void delete(Word word) async{
+    try {
+      final File file = await _getFileLocationFromWord(word);
+
+      file.delete();
+    }
+    catch(e) {
+      print(e);
+    }
+  }
+
   @override
   void write(Word word) async{
     try {

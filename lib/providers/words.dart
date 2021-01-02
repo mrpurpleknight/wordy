@@ -39,6 +39,7 @@ class Words with ChangeNotifier {
 
   void removeWord(Word word) {
     _wordsList.removeWhere((element) => element.name == word.name);
+    _repository.delete(word);
     notifyListeners();
   }
 

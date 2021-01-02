@@ -4,6 +4,10 @@ import 'package:learn_words/providers/words.dart';
 import 'package:provider/provider.dart';
 
 class ToolBar extends StatefulWidget {
+
+  final bool isPresent;
+  ToolBar(this.isPresent);
+
   @override
   _ToolBarState createState() => _ToolBarState();
 }
@@ -11,6 +15,13 @@ class ToolBar extends StatefulWidget {
 class _ToolBarState extends State<ToolBar> {
   Words words;
   Color favoriteColor = Colors.white38;
+
+  @override
+  void initState() {
+    super.initState();
+    words = Provider.of<Words>(context, listen: false);
+    if(widget.isPresent) favoriteColor = Colors.redAccent;
+  }
 
   void setFavorite(Word word) {
     if(words.isPresent(word)) {
@@ -32,7 +43,6 @@ class _ToolBarState extends State<ToolBar> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Future<Word> wordFuture = Provider.of<Future<Word>>(context);
-    words = Provider.of<Words>(context);
 
     return Container(
       margin: EdgeInsets.only(left: size.width * 0.6, top: 10),

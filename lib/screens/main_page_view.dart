@@ -13,8 +13,8 @@ class MainPageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => Words.instance,
+        ChangeNotifierProvider.value(
+          value: Words.instance,
         ),
       ],
       child: PageView(

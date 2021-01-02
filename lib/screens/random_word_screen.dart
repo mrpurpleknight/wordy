@@ -68,7 +68,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
                     );
                   }
                 }),
-            ToolBar(),
+            ToolBar(false),
           ],
         ),
       ),
