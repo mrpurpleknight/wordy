@@ -6,7 +6,7 @@ class SuggestionTile extends StatelessWidget {
   final Word _word;
   final TextEditingController controller;
 
-  SuggestionTile(this._word,{this.controller});
+  SuggestionTile(this._word, {this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,11 @@ class SuggestionTile extends StatelessWidget {
             ),
           ],
         ),
-        trailing: Icon(Icons.search, size: 30,),
+        trailing: Icon(
+          Icons.search,
+          size: 30,
+          color: Theme.of(context).backgroundColor,
+        ),
       ),
     );
   }

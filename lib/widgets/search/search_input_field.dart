@@ -88,6 +88,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
                               ),
                               trailing: Icon(
                                 Icons.search,
+                                color: Theme.of(context).backgroundColor,
                                 size: 30,
                               ),
                             ),

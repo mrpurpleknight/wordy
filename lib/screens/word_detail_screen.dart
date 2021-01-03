@@ -30,9 +30,6 @@ class WordDetailScreen extends StatelessWidget {
         child: MultiProvider(
           providers: [
             ChangeNotifierProvider.value(value: Words.instance),
-            Provider.value(
-              value: Future.sync(() => word),
-            )
           ],
           child: SingleChildScrollView(
             child: Padding(

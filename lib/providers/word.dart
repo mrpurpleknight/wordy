@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:wordy/business/http_words.dart';
 
-class Word {
+class Word extends Equatable{
   final String name;
   final String partOfSpeech;
   final String definition;
@@ -63,4 +64,7 @@ class Word {
       'examplePhrase': examplePhrase,
     };
   }
+
+  @override
+  List<Object> get props => [name, partOfSpeech, definition, examplePhrase];
 }
