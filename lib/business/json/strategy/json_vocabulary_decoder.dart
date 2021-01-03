@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:learn_words/business/json/strategy/json_decoder_strategy.dart';
-import 'package:learn_words/providers/word.dart';
+import 'package:wordy/business/json/strategy/json_decoder_strategy.dart';
+import 'package:wordy/providers/word.dart';
 
 class JsonVocabularyDecoder extends JsonDecoderStrategy {
 

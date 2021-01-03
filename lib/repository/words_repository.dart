@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:learn_words/repository/repository.dart';
+import 'package:wordy/repository/repository.dart';
 import 'package:path_provider/path_provider.dart';
 import '../providers/word.dart';
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
-import 'package:learn_words/providers/word.dart';
+import 'package:wordy/providers/word.dart';
 
 import 'suggestions_list.dart';
 
@@ -66,7 +66,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
                 portal: CompositedTransformFollower(
                   link: _layerLink,
                   showWhenUnlinked: false,
-                  offset: Offset(0.0, 60.0 - 17.0),
+                  offset: Offset(-15, 60.0 - 17.0),
                   child: Material(
                     elevation: 4.0,
                     child: FutureBuilder<List<Word>>(
@@ -74,18 +74,22 @@ class _SearchInputFieldState extends State<SearchInputField> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Container(
-                            width: size.width * 0.73,
-                            child: SuggestionsList(snapshot.data),
+                            width: size.width * 0.75,
+                            child: SuggestionsList(snapshot.data,
+                                controller: _myController),
                           );
                         } else
                           return Container(
-                            width: size.width * 0.73,
+                            width: size.width * 0.75,
                             child: ListTile(
                               title: Text(
                                 '...',
                                 style: Theme.of(context).textTheme.headline5,
                               ),
-                              trailing: Icon(Icons.search),
+                              trailing: Icon(
+                                Icons.search,
+                                size: 30,
+                              ),
                             ),
                           );
                       },
@@ -101,11 +105,6 @@ class _SearchInputFieldState extends State<SearchInputField> {
                       fontSize: 18,
                       color: Colors.black),
                   decoration: InputDecoration(
-                    hintText: "Search a word",
-                    hintStyle: TextStyle(
-                        fontFamily: 'Merriweather',
-                        color: Colors.black.withOpacity(0.63),
-                        fontSize: 18),
                     enabledBorder: InputBorder.none,
                     focusedBorder: InputBorder.none,
                     border: UnderlineInputBorder(

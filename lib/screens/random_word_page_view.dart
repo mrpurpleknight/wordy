@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:learn_words/providers/word.dart';
-import 'package:learn_words/screens/random_word_screen.dart';
+import 'package:wordy/providers/word.dart';
+import 'package:wordy/screens/random_word_screen.dart';
 import 'package:provider/provider.dart';
 
 class RandomWordPageView extends StatelessWidget {

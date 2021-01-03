@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:learn_words/business/json/strategy/json_suggestions_decoder.dart';
-import 'package:learn_words/business/json/strategy/json_vocabulary_decoder.dart';
-import 'package:learn_words/constants.dart';
+import 'package:wordy/business/json/strategy/json_suggestions_decoder.dart';
+import 'package:wordy/business/json/strategy/json_vocabulary_decoder.dart';
+import 'package:wordy/constants.dart';
 
 import '../providers/word.dart';
 

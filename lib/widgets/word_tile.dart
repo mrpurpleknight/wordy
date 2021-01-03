@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:learn_words/providers/word.dart';
+import 'package:wordy/providers/word.dart';
 
 class WordTile extends StatelessWidget {
   final Word _word;

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:learn_words/providers/words.dart';
-import 'package:learn_words/screens/words_list_screen.dart';
-import 'package:learn_words/widgets/search/search_input_field.dart';
-import 'package:learn_words/widgets/words_showcase.dart';
+import 'package:wordy/providers/words.dart';
+import 'package:wordy/screens/words_list_screen.dart';
+import 'package:wordy/widgets/search/search_input_field.dart';
+import 'package:wordy/widgets/words_showcase.dart';
 import 'package:provider/provider.dart';
 
 class MainScreen extends StatefulWidget {
@@ -62,7 +62,6 @@ class _MainScreenState extends State<MainScreen> {
                     Container(
                       margin: EdgeInsets.only(
                         top: size.height * 0.125,
-                        bottom: 8,
                         left: 32,
                       ),
                       child: (!words.isEmpty())

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learn_words/repository/words_repository.dart';
+import 'package:wordy/repository/words_repository.dart';
 
 import 'word.dart';
 

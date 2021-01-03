@@ -1,4 +1,4 @@
-import 'package:learn_words/providers/word.dart';
+import 'package:wordy/providers/word.dart';
 
 
 abstract class JsonDecoderStrategy {

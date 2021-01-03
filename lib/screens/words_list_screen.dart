@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:learn_words/providers/words.dart';
-import 'package:learn_words/widgets/words_grid.dart';
+import 'package:wordy/providers/words.dart';
+import 'package:wordy/widgets/words_grid.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';

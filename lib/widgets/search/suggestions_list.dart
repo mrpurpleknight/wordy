@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:learn_words/providers/word.dart';
-import 'package:learn_words/widgets/search/suggestion_tile.dart';
+import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/search/suggestion_tile.dart';
 
 class SuggestionsList extends StatelessWidget {
   final List<Word> words;
+  final TextEditingController controller;
 
-  SuggestionsList(this.words);
+  SuggestionsList(this.words, {this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class SuggestionsList extends StatelessWidget {
         padding: EdgeInsets.zero,
         itemCount: words.length,
         itemBuilder: (context, index) {
-          return SuggestionTile(words.elementAt(index));
+          return SuggestionTile(words.elementAt(index), controller: controller);
         });
   }
 }

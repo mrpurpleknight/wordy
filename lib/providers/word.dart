@@ -1,4 +1,4 @@
-import 'package:learn_words/business/http_words.dart';
+import 'package:wordy/business/http_words.dart';
 
 class Word {
   final String name;
@@ -16,22 +16,22 @@ class Word {
   String get partOfSpeechAbbreviation {
     switch(partOfSpeech) {
       case 'article':
-        return 'art';
+        return 'art.';
         break;
       case 'pronoun':
-        return 'pro';
+        return 'prop.';
         break;
       case 'preposition':
-        return 'pre';
+        return 'prep.';
         break;
       case 'adjective':
-        return 'adj';
+        return 'adj.';
         break;
       case 'adverb':
-        return 'adv';
+        return 'adv.';
         break;
       case 'conjunction':
-        return 'conj';
+        return 'conj.';
         break;
       default:
         return partOfSpeech;

@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:learn_words/constants.dart';
-import 'package:learn_words/providers/word.dart';
-import 'package:learn_words/widgets/word_tile.dart';
-import 'package:learn_words/widgets/tool_bar.dart';
+import 'package:wordy/constants.dart';
+import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/word_tile.dart';
+import 'package:wordy/widgets/tool_bar.dart';
 import 'package:provider/provider.dart';
 
 class RandomWordScreen extends StatefulWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:learn_words/providers/word.dart';
-import 'package:learn_words/providers/words.dart';
+import 'package:wordy/providers/word.dart';
+import 'package:wordy/providers/words.dart';
 import 'package:provider/provider.dart';
 
 class ToolBar extends StatefulWidget {
