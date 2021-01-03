@@ -1,6 +1,3 @@
-import 'dart:async';
-import 'dart:convert';
-
 import 'package:learn_words/business/http_words.dart';
 
 class Word {
@@ -16,10 +13,39 @@ class Word {
     this.examplePhrase,
   });
 
+  String get partOfSpeechAbbreviation {
+    switch(partOfSpeech) {
+      case 'article':
+        return 'art';
+        break;
+      case 'pronoun':
+        return 'pro';
+        break;
+      case 'preposition':
+        return 'pre';
+        break;
+      case 'adjective':
+        return 'adj';
+        break;
+      case 'adverb':
+        return 'adv';
+        break;
+      case 'conjunction':
+        return 'conj';
+        break;
+      default:
+        return partOfSpeech;
+        break;
+    }
+  }
+
   static Future<Word> random() async {
     return HttpWords.instance.randomWord;
   }
-  
+
+  static Future<List<Word>> suggestions(String name, int limit) {
+    return HttpWords.instance.getSuggestionsFromWordName(name, limit);
+  }
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(

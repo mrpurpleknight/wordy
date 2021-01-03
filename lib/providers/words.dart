@@ -16,6 +16,7 @@ class Words with ChangeNotifier {
     });
   }
 
+
   static Words get instance {
     if(_instance == null)
       _instance = Words._internal();

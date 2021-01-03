@@ -50,9 +50,12 @@ class HttpWords {
     http.Response stateResponse = await _client.get(preparedUrl);
    _suggestionsDecoder.toDecode = stateResponse.body;
     List<String> suggestionStringList = _suggestionsDecoder.decode();
-    for(int i = 0; i < suggestionStringList.length; i++) {
-      Word toInsert = await getWordFromName(suggestionStringList.elementAt(i));
-      toReturn.add(toInsert);
+    if(suggestionStringList != null) {
+      for(int i = 0; i < suggestionStringList.length; i++) {
+        Word toInsert = await getWordFromName(suggestionStringList.elementAt(i));
+        if(toInsert != null)
+          toReturn.add(toInsert);
+      }
     }
 
     return toReturn;
