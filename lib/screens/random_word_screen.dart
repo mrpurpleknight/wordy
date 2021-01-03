@@ -27,19 +27,20 @@ class _RandomWordScreenState extends State<RandomWordScreen>
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            FutureBuilder<Word>(
-                future: wordFuture,
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Padding(
-                        padding: const EdgeInsets.only(
-                            top: 40, left: 40, right: 40, bottom: 25),
-                        child: Container(
-                            padding: EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
+        child: FutureBuilder<Word>(
+            future: wordFuture,
+            builder: (context, snapshot) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  (snapshot.connectionState == ConnectionState.waiting)
+                      ? Padding(
+                          padding: const EdgeInsets.only(
+                              top: 40, left: 40, right: 40, bottom: 25),
+                          child: Container(
+                            padding: EdgeInsets.only(
+                                top: 50, right: 25, left: 25, bottom: 25),
                             height: size.height * 0.6,
                             width: size.width * 0.9,
                             decoration: BoxDecoration(
@@ -50,27 +51,28 @@ class _RandomWordScreenState extends State<RandomWordScreen>
                                   color: Colors.black12.withOpacity(0.3),
                                   spreadRadius: 2,
                                   blurRadius: 2,
-                                  offset: Offset(2, 4), // changes position of shadow
+                                  offset: Offset(
+                                      2, 4), // changes position of shadow
                                 ),
                               ],
                             ),
-                            child: Center(child: SpinKitWave(
+                            child: Center(
+                                child: SpinKitWave(
                               color: Colors.black.withOpacity(0.7),
                               type: SpinKitWaveType.center,
                               size: 35.0,
-                            )),),);
-                  }
-                  else {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                          top: 40, left: 40, right: 40, bottom: 25),
-                      child: WordTile(snapshot.data),
-                    );
-                  }
-                }),
-            ToolBar(false),
-          ],
-        ),
+                            )),
+                          ),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.only(
+                              top: 40, left: 40, right: 40, bottom: 25),
+                          child: WordTile(snapshot.data),
+                        ),
+                  ToolBar(snapshot.data),
+                ],
+              );
+            }),
       ),
     );
   }

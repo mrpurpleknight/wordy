@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class ToolBar extends StatefulWidget {
 
-  final bool isPresent;
-  ToolBar(this.isPresent);
+  final Word _word;
+  ToolBar(this._word);
 
   @override
   _ToolBarState createState() => _ToolBarState();
@@ -20,7 +20,7 @@ class _ToolBarState extends State<ToolBar> {
   void initState() {
     super.initState();
     words = Provider.of<Words>(context, listen: false);
-    if(widget.isPresent) favoriteColor = Colors.redAccent;
+    if(words.isPresent(widget._word)) favoriteColor = Colors.redAccent;
   }
 
   void setFavorite(Word word) {

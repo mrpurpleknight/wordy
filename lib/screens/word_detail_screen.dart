@@ -35,6 +35,7 @@ class WordDetailScreen extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 62),
             child: Column(
+              mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -43,7 +44,7 @@ class WordDetailScreen extends StatelessWidget {
                       top: 0, left: 40, right: 40, bottom: 25),
                   child: WordTile(word),
                 ),
-                ToolBar(true),
+                ToolBar(word),
               ],
             ),
           ),

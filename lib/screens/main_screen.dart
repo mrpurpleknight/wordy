@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:learn_words/providers/words.dart';
 import 'package:learn_words/screens/words_list_screen.dart';
-import 'package:learn_words/widgets/search_input_field.dart';
+import 'package:learn_words/widgets/search/search_input_field.dart';
 import 'package:learn_words/widgets/words_showcase.dart';
 import 'package:provider/provider.dart';
 
