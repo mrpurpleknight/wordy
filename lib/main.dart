@@ -117,6 +117,7 @@ class Wordy extends StatelessWidget {
 
             if (currentFocus.focusedChild != null) {
               currentFocus.focusedChild.unfocus();
+              FocusScope.of(context).requestFocus(new FocusNode());
             }
           },
         ),

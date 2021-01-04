@@ -53,7 +53,7 @@ class HttpWords {
     if(suggestionStringList != null) {
       for(int i = 0; i < suggestionStringList.length; i++) {
         Word toInsert = await getWordFromName(suggestionStringList.elementAt(i));
-        if(toInsert != null)
+        if(toInsert != null && !toReturn.contains(toInsert))
           toReturn.add(toInsert);
       }
     }

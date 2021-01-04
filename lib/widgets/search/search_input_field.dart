@@ -92,7 +92,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
                   child: Material(
                     elevation: 4.0,
                     child: FutureBuilder<List<Word>>(
-                      future: Word.suggestions(_controller.text, 6),
+                      future: Word.suggestions(_controller.text, 5),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Container(
