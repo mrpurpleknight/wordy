@@ -30,12 +30,12 @@ dependencies:
   flutter_svg: ^0.19.2+1
   flutter_spinkit: "^4.1.2"
   mockito: ^4.1.3
-  flutter_typeahead: ^1.9.1
   throttling: ^0.9.0
   flutter_portal: ^0.3.0
   equatable: ^1.2.5
   showcaseview: ^0.1.6
   shared_preferences: ^0.5.12+4
+  splashscreen:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,6 +63,8 @@ flutter:
   assets:
    - assets/images/vocabulary.svg
    - assets/images/swipe-up.svg
+   - assets/images/dictionary.svg
+   - assets/images/dictionary.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

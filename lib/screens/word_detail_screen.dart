@@ -33,15 +33,14 @@ class WordDetailScreen extends StatelessWidget {
           ],
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(top: 62),
+              padding: const EdgeInsets.only(top: 30),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 0, left: 40, right: 40, bottom: 25),
+                    padding: const EdgeInsets.only(left: 40, right: 40, bottom: 25),
                     child: WordTile(word),
                   ),
                   ToolBar(word),

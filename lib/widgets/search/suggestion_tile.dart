@@ -4,6 +4,7 @@ import 'package:wordy/screens/word_detail_screen.dart';
 
 class SuggestionTile extends StatelessWidget {
   final Word _word;
+
   final TextEditingController controller;
   final Function refreshInputCallback;
 

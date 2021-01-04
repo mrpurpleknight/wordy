@@ -74,7 +74,7 @@ class _MainScreenState extends State<MainScreen> {
                         style: TextStyle(
                             fontSize: 44,
                             color: Colors.white,
-                            fontWeight: FontWeight.w900),
+                            fontWeight: FontWeight.w900, fontFamily: 'Merriweather'),
                       ),
                     ),
                     Column(
@@ -82,7 +82,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                              top: size.height * 0.05, left: 30, right: 30),
+                              top: size.height * 0.035, left: 30, right: 30),
                           child: Text(
                             'Start your research',
                             style: TextStyle(
@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Container(
                             margin: EdgeInsets.only(
-                              top: size.height * 0.135,
+                              top: size.height * 0.125,
                               left: 32,
                             ),
                             child: ShowcaseHeader()),
