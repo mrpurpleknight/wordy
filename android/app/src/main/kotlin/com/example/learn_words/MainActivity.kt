@@ -1,4 +1,4 @@
-package com.example.learn_words
+package com.example.wordy
 
 import io.flutter.embedding.android.FlutterActivity
 

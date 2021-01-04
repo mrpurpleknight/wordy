@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.learn_words">
+    package="com.example.wordy">
    <application
-        android:label="learn_words"
+        android:label="wordy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

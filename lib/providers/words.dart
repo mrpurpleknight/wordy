@@ -33,9 +33,11 @@ class Words with ChangeNotifier {
   }
 
   void addWord(Word word) {
-    _wordsList.add(word);
-    notifyListeners();
-    _repository.write(word);
+    if(!this.isPresent(word)) {
+      _wordsList.add(word);
+      notifyListeners();
+      _repository.write(word);
+    }
   }
 
   void removeWord(Word word) {

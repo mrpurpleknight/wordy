@@ -99,6 +99,9 @@ class _SearchInputFieldState extends State<SearchInputField> {
                 ),
                 child: TextField(
                   controller: _myController,
+                  onSubmitted: (String text) {
+
+                  },
                   focusNode: _focusNode,
                   style: TextStyle(
                       fontFamily: 'Merriweather',
