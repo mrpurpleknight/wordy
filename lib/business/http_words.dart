@@ -46,7 +46,7 @@ class HttpWords {
 
   Future<List<Word>> getSuggestionsFromWordName(String wordName, int limit) async {
     List<Word> toReturn = [];
-    String preparedUrl = '${suggestionWordUrl}sp=$wordName?*&max=$limit';
+    String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
     http.Response stateResponse = await _client.get(preparedUrl);
    _suggestionsDecoder.toDecode = stateResponse.body;
     List<String> suggestionStringList = _suggestionsDecoder.decode();

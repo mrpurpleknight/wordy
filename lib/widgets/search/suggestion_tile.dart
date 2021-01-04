@@ -5,19 +5,15 @@ import 'package:wordy/screens/word_detail_screen.dart';
 class SuggestionTile extends StatelessWidget {
   final Word _word;
   final TextEditingController controller;
+  final Function refreshInputCallback;
 
-  SuggestionTile(this._word, {this.controller});
+  SuggestionTile(this._word, {this.controller, this.refreshInputCallback});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        FocusScopeNode currentFocus = FocusScope.of(context);
-        if (currentFocus.focusedChild != null) {
-          currentFocus.focusedChild.unfocus();
-        }
-
-        controller.text = '';
+        refreshInputCallback(controller);
 
         Navigator.of(context)
             .pushNamed(WordDetailScreen.routeName, arguments: _word);
@@ -38,10 +34,13 @@ class SuggestionTile extends StatelessWidget {
             ),
           ],
         ),
-        trailing: Icon(
-          Icons.search,
-          size: 30,
-          color: Theme.of(context).backgroundColor,
+        trailing: Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Icon(
+            Icons.search,
+            size: 30,
+            color: Theme.of(context).backgroundColor,
+          ),
         ),
       ),
     );

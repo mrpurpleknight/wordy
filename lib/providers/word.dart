@@ -44,7 +44,11 @@ class Word extends Equatable{
     return HttpWords.instance.randomWord;
   }
 
-  static Future<List<Word>> suggestions(String name, int limit) {
+  static Future<Word> byName(String name) async{
+    return HttpWords.instance.getWordFromName(name);
+  }
+
+  static Future<List<Word>> suggestions(String name, int limit) async{
     return HttpWords.instance.getSuggestionsFromWordName(name, limit);
   }
 

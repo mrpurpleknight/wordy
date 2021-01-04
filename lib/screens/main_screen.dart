@@ -136,7 +136,7 @@ class _MainScreenState extends State<MainScreen> {
                       children: [
                         Container(
                             margin: EdgeInsets.only(
-                              top: size.height * 0.125,
+                              top: size.height * 0.135,
                               left: 32,
                             ),
                             child: ShowcaseHeader()),

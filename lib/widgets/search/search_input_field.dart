@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/screens/word_detail_screen.dart';
 
 import 'suggestions_list.dart';
 
@@ -12,7 +13,7 @@ class SearchInputField extends StatefulWidget {
 class _SearchInputFieldState extends State<SearchInputField> {
   final _focusNode = FocusNode();
   final LayerLink _layerLink = LayerLink();
-  TextEditingController _myController = TextEditingController();
+  TextEditingController _controller = TextEditingController();
   bool isOpen = false;
 
   @override
@@ -26,8 +27,8 @@ class _SearchInputFieldState extends State<SearchInputField> {
       }
     });
 
-    _myController.addListener(() {
-      if (_myController.text != '' && _focusNode.hasFocus) {
+    _controller.addListener(() {
+      if (_controller.text != '' && _focusNode.hasFocus) {
         setState(() {
           isOpen = true;
         });
@@ -35,15 +36,36 @@ class _SearchInputFieldState extends State<SearchInputField> {
     });
   }
 
+  void refreshInput(TextEditingController controller) {
+    FocusScopeNode currentFocus = FocusScope.of(context);
+    if (currentFocus.focusedChild != null) {
+      currentFocus.focusedChild.unfocus();
+    }
+
+    controller.text = '';
+  }
+
+  void goToDetail(String name) {
+    Word.byName(name).then((value) {
+      if(value != null) {
+        refreshInput(_controller);
+        Navigator.of(context)
+            .pushNamed(WordDetailScreen.routeName, arguments: value);
+      }
+    });
+  }
+
   @override
   void dispose() {
-    _myController.dispose();
+    _controller.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 15),
       height: 60,
@@ -66,17 +88,21 @@ class _SearchInputFieldState extends State<SearchInputField> {
                 portal: CompositedTransformFollower(
                   link: _layerLink,
                   showWhenUnlinked: false,
-                  offset: Offset(-15, 60.0 - 17.0),
+                  offset: Offset(-15, 60.0 - 10),
                   child: Material(
                     elevation: 4.0,
                     child: FutureBuilder<List<Word>>(
-                      future: Word.suggestions(_myController.text, 5),
+                      future: Word.suggestions(_controller.text, 6),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Container(
                             width: size.width * 0.75,
+                            constraints: BoxConstraints(
+                              maxHeight: size.height * 0.29,
+                            ),
                             child: SuggestionsList(snapshot.data,
-                                controller: _myController),
+                                refreshInputCallback: refreshInput,
+                                controller: _controller),
                           );
                         } else
                           return Container(
@@ -84,12 +110,20 @@ class _SearchInputFieldState extends State<SearchInputField> {
                             child: ListTile(
                               title: Text(
                                 '...',
-                                style: Theme.of(context).textTheme.headline5,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .headline5,
                               ),
-                              trailing: Icon(
-                                Icons.search,
-                                color: Theme.of(context).backgroundColor,
-                                size: 30,
+                              trailing: Padding(
+                                padding: const EdgeInsets.only(right: 5.0),
+                                child: Icon(
+                                  Icons.search,
+                                  color: Theme
+                                      .of(context)
+                                      .backgroundColor,
+                                  size: 30,
+                                ),
                               ),
                             ),
                           );
@@ -98,10 +132,8 @@ class _SearchInputFieldState extends State<SearchInputField> {
                   ),
                 ),
                 child: TextField(
-                  controller: _myController,
-                  onSubmitted: (String text) {
-
-                  },
+                  controller: _controller,
+                  onSubmitted: (String text) => goToDetail(text),
                   focusNode: _focusNode,
                   style: TextStyle(
                       fontFamily: 'Merriweather',
@@ -120,10 +152,15 @@ class _SearchInputFieldState extends State<SearchInputField> {
               ),
             ),
           ),
-          Icon(
-            Icons.search,
-            size: 35,
-            color: Theme.of(context).backgroundColor,
+          InkWell(
+            onTap: () => goToDetail(_controller.text),
+            child: Icon(
+              Icons.search,
+              size: 35,
+              color: Theme
+                  .of(context)
+                  .backgroundColor,
+            ),
           ),
         ],
       ),

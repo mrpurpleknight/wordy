@@ -30,7 +30,7 @@ class WordsListScreen extends StatelessWidget {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
-                  elevation: 4,
+                  elevation: 8,
                   forceElevated: true,
                   shadowColor: Colors.black87,
                   actions: [
