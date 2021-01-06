@@ -105,17 +105,7 @@ class Wordy extends StatelessWidget {
                     color: Colors.black),
               ),
         ),
-        home: GestureDetector(
-          child: MainPageView(),
-          onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-
-            if (currentFocus.focusedChild != null) {
-              currentFocus.focusedChild.unfocus();
-              FocusScope.of(context).requestFocus(new FocusNode());
-            }
-          },
-        ),
+        home: MainPageView(),
         routes: {
           WordsListScreen.routeName: (ctx) => WordsListScreen(),
           WordDetailScreen.routeName: (ctx) => WordDetailScreen(),

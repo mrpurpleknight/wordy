@@ -72,7 +72,7 @@ class WordsListScreen extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
-              SliverPadding(padding: EdgeInsets.all(4), sliver: WordsGrid()),
+              SliverPadding(padding: EdgeInsets.only(top: 6, left: 4, right: 4, bottom: 6), sliver: WordsGrid()),
             ],
           ),
         ),

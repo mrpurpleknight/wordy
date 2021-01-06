@@ -19,7 +19,7 @@ class _WordsGridState extends State<WordsGrid> {
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
             child: SmallWordTile(words.getList().elementAt(index)),
           );
         },

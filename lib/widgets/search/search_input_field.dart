@@ -1,172 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:wordy/providers/word.dart';
-import 'package:wordy/screens/word_detail_screen.dart';
 
-import 'suggestions_list.dart';
+class SearchInputField extends StatelessWidget {
+  final TextEditingController _controller;
+  final Function _onSubmitCallback;
+  final FocusNode _focusNode;
 
-class SearchInputField extends StatefulWidget {
-  @override
-  _SearchInputFieldState createState() => _SearchInputFieldState();
-}
-
-class _SearchInputFieldState extends State<SearchInputField> {
-  final _focusNode = FocusNode();
-  final LayerLink _layerLink = LayerLink();
-  TextEditingController _controller = TextEditingController();
-  bool isOpen = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _focusNode.addListener(() {
-      if (!_focusNode.hasFocus) {
-        setState(() {
-          isOpen = false;
-        });
-      }
-    });
-
-    _controller.addListener(() {
-      if (_controller.text != '' && _focusNode.hasFocus) {
-        setState(() {
-          isOpen = true;
-        });
-      }
-      if(_controller.text == '')
-        setState(() {
-          isOpen = false;
-        });
-    });
-  }
-
-  void refreshInput(TextEditingController controller) {
-    FocusScopeNode currentFocus = FocusScope.of(context);
-    if (currentFocus.focusedChild != null) {
-      currentFocus.focusedChild.unfocus();
-    }
-
-    controller.text = '';
-  }
-
-  void goToDetail(String name) {
-    Word.byName(name).then((value) {
-      if (value != null) {
-        refreshInput(_controller);
-        Navigator.of(context)
-            .pushNamed(WordDetailScreen.routeName, arguments: value);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
+  SearchInputField({
+    @required TextEditingController controller,
+    @required Function onSubmitCallback,
+    @required FocusNode focusNode,
+  })  : _controller = controller,
+        _onSubmitCallback = onSubmitCallback,
+        _focusNode = focusNode;
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.only(left: 30, right: 30, top: 15),
-      height: 60,
-      width: size.width * 0.9,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 30),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Expanded(
-            child: CompositedTransformTarget(
-              link: _layerLink,
-              child: PortalEntry(
-                visible: isOpen,
-                portalAnchor: Alignment.topCenter,
-                childAnchor: Alignment.bottomLeft,
-                portal: CompositedTransformFollower(
-                  link: _layerLink,
-                  showWhenUnlinked: false,
-                  offset: Offset(-15, 60.0 - 10),
-                  child: Material(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-                    elevation: 4.0,
-                    child: FutureBuilder<List<Word>>(
-                      future: Word.suggestions(_controller.text, 6),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Container(
-                            width: size.width * 0.77,
-                            constraints: BoxConstraints(
-                              maxHeight: size.height * 0.29,
-                            ),
-                            child: SuggestionsList(snapshot.data,
-                                refreshInputCallback: refreshInput,
-                                controller: _controller),
-                          );
-                        } else
-                          return Container(
-                            width: size.width * 0.75,
-                            child: ListTile(
-                              title: SizedBox(
-                                width: 50,
-                                height: 10,
-                                child: Padding(
-                                  padding: EdgeInsets.only(right: size.width * 0.47),
-                                  child: SpinKitThreeBounce(
-                                    size: 13,
-                                    color: Theme.of(context).backgroundColor,
-                                  ),
-                                ),
-                              ),
-                              trailing: Padding(
-                                padding: const EdgeInsets.only(right: 5.0),
-                                child: Icon(
-                                  Icons.search,
-                                  color: Theme.of(context).backgroundColor,
-                                  size: 30,
-                                ),
-                              ),
-                            ),
-                          );
-                      },
-                    ),
-                  ),
-                ),
-                child: TextField(
-                  controller: _controller,
-                  onSubmitted: (String text) => goToDetail(text),
-                  focusNode: _focusNode,
-                  style: TextStyle(
-                      fontFamily: 'Merriweather',
-                      fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                      color: Colors.black),
-                  decoration: InputDecoration(
-                    enabledBorder: InputBorder.none,
-                    focusedBorder: InputBorder.none,
-                    border: UnderlineInputBorder(
-                      borderRadius: BorderRadius.circular(25),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          InkWell(
-            onTap: () => goToDetail(_controller.text),
-            child: Icon(
-              Icons.search,
-              size: 35,
-              color: Theme.of(context).backgroundColor,
-            ),
-          ),
-        ],
+    return TextField(
+      controller: _controller,
+      onSubmitted: (String text) => _onSubmitCallback(text),
+      focusNode: _focusNode,
+      style: TextStyle(
+          fontFamily: 'Merriweather',
+          fontWeight: FontWeight.w800,
+          fontSize: 18,
+          color: Colors.black),
+      decoration: InputDecoration(
+        enabledBorder: InputBorder.none,
+        focusedBorder: InputBorder.none,
+        border: UnderlineInputBorder(
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide.none,
+        ),
       ),
     );
   }
