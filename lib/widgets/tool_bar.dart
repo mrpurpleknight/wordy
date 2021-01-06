@@ -46,7 +46,10 @@ class _ToolBarState extends State<ToolBar> {
     return Container(
       margin: EdgeInsets.only(left: size.width * 0.6, top: 10),
       child: InkWell(
-        onTap: () => setFavorite(widget._word),
+        onTap: () {
+          if (widget._word != null)
+            setFavorite(widget._word);
+        },
         child: Icon(
           Icons.favorite,
           size: 55,

@@ -36,24 +36,26 @@ class HttpWords {
   }
 
   Future<List<Word>> getRandomWords(int number) async {
-    List<Word> toReturn;
-    while (toReturn.length != number) {
+    List<Word> toReturn = [];
+    for (int i = 0; i < number; i++) {
       randomWord.then((value) => toReturn.add(value));
     }
 
     return toReturn;
   }
 
-  Future<List<Word>> getSuggestionsFromWordName(String wordName, int limit) async {
+  Future<List<Word>> getSuggestionsFromWordName(
+      String wordName, int limit) async {
     List<Word> toReturn = [];
     String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
-    http.Response stateResponse = await _client.get(preparedUrl);
-   _suggestionsDecoder.toDecode = stateResponse.body;
-    List<String> suggestionStringList = _suggestionsDecoder.decode();
-    if(suggestionStringList != null) {
-      for(int i = 0; i < suggestionStringList.length; i++) {
-        Word toInsert = await getWordFromName(suggestionStringList.elementAt(i));
-        if(toInsert != null && !toReturn.contains(toInsert))
+    http.Response response = await _client.get(preparedUrl);
+    List<String> suggestionStringList =
+        _suggestionsDecoder.decode(response.body);
+    if (suggestionStringList != null) {
+      for (int i = 0; i < suggestionStringList.length; i++) {
+        Word toInsert =
+            await getWordFromName(suggestionStringList.elementAt(i));
+        if (toInsert != null && !toReturn.contains(toInsert))
           toReturn.add(toInsert);
       }
     }
@@ -62,7 +64,7 @@ class HttpWords {
   }
 
   Future<Word> getWordFromName(String name) async {
-    http.Response stateResponse = await _client.get(
+    http.Response response = await _client.get(
       '$vocabularyWordUrl$name',
       headers: <String, String>{
         'x-rapidapi-key': x_rapid_key,
@@ -70,7 +72,6 @@ class HttpWords {
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
-    _vocabularyDecoder.toDecode = stateResponse.body;
-    return _vocabularyDecoder.decode();
+    return _vocabularyDecoder.decode(response.body);
   }
 }

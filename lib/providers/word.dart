@@ -44,6 +44,10 @@ class Word extends Equatable{
     return HttpWords.instance.randomWord;
   }
 
+  static Future<List<Word>> randomList(int number) async {
+    return HttpWords.instance.getRandomWords(number);
+  }
+
   static Future<Word> byName(String name) async{
     return HttpWords.instance.getWordFromName(name);
   }

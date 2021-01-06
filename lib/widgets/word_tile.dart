@@ -32,7 +32,7 @@ class WordTile extends StatelessWidget {
         children: [
           Text(_word.name, style: Theme.of(context).textTheme.headline2),
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: EdgeInsets.only(top: 10, bottom: 17),
             child: Text(
               _word.partOfSpeech,
               style: Theme.of(context).textTheme.headline3,

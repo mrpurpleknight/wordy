@@ -1,5 +1,3 @@
 abstract class JsonDecoderStrategy {
-  String toDecode;
-
-  dynamic decode();
+  dynamic decode(String toDecode);
 }

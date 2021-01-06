@@ -13,9 +13,9 @@ class SmallWordTile extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).pushNamed(WordDetailScreen.routeName, arguments: word),
       child: Container(
-        padding: EdgeInsets.only(top: 30, right: 20, left: 19, bottom: 23),
+        padding: EdgeInsets.only(top: 30, right: 17, left: 19, bottom: 23),
         height: size.height * 0.359,
-        width: size.width * 0.5,
+        width: size.width * 0.482,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
@@ -33,7 +33,7 @@ class SmallWordTile extends StatelessWidget {
           children: [
             Text(word.name, style: Theme.of(context).textTheme.headline1),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10),
+              padding: EdgeInsets.only(top: 8, bottom: 12),
               child: Text(
                 word.partOfSpeech,
                 style: Theme.of(context).textTheme.bodyText1,

@@ -5,7 +5,7 @@ import 'package:wordy/business/json/strategy/json_decoder_strategy.dart';
 class JsonSuggestionsDecoder extends JsonDecoderStrategy {
 
   @override
-  dynamic decode() {
+  dynamic decode(String toDecode) {
     List<dynamic> json = jsonDecode(toDecode);
 
     List<String> toReturn = [];

@@ -14,17 +14,17 @@ class WordsListScreen extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: Words.instance,
       child: Scaffold(
-        // floatingActionButton: Padding(
-        //   padding: EdgeInsets.only(right: 5, bottom: 22),
-        //   child: Transform.scale(
-        //     scale: 1.2,
-        //     child: FloatingActionButton(
-        //       onPressed: () {},
-        //       child: Icon(Icons.add),
-        //       backgroundColor: Theme.of(context).accentColor,
-        //     ),
-        //   ),
-        // ),
+        floatingActionButton: Padding(
+          padding: EdgeInsets.only(right: 5, bottom: 22),
+          child: Transform.scale(
+            scale: 1.2,
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.add),
+              backgroundColor: Theme.of(context).accentColor,
+            ),
+          ),
+        ),
         body: Container(
           color: Theme.of(context).backgroundColor,
           child: CustomScrollView(
@@ -44,33 +44,33 @@ class WordsListScreen extends StatelessWidget {
                     )
                   ],
                   pinned: true,
-                  expandedHeight: 150.0,
+                  centerTitle: true,
+                  title: Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(
+                        'Words',
+                        style: TextStyle(
+                            fontFamily: 'Merriweather',
+                            fontWeight: FontWeight.w800,
+                            fontSize: 26,
+                            color: Colors.white),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, bottom: 2),
+                        child: SvgPicture.asset(
+                          'assets/images/vocabulary.svg',
+                          color: Colors.white,
+                          width: 30,
+                          height: 30,
+                        ),
+                      ),
+                    ],
+                  ),
                   backgroundColor: Theme.of(context).accentColor,
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
-                    collapseMode: CollapseMode.pin,
-                    title: Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Text(
-                          'Words',
-                          style: TextStyle(
-                              fontFamily: 'Merriweather',
-                              fontWeight: FontWeight.w800,
-                              fontSize: 26,
-                              color: Colors.white),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 12, bottom: 4),
-                          child: SvgPicture.asset(
-                            'assets/images/vocabulary.svg',
-                            color: Colors.white,
-                            width: 32,
-                            height: 32,
-                          ),
-                        ),
-                      ],
-                    ),
+                    collapseMode: CollapseMode.parallax,
                   )),
               SliverPadding(padding: EdgeInsets.all(4), sliver: WordsGrid()),
             ],

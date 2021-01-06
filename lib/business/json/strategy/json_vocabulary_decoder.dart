@@ -6,7 +6,7 @@ import 'package:wordy/providers/word.dart';
 class JsonVocabularyDecoder extends JsonDecoderStrategy {
 
   @override
-  dynamic decode() {
+  dynamic decode(String toDecode) {
     Map<String, dynamic> json = jsonDecode(toDecode);
     List wordResult = json['results'];
     String name = _getName(json);

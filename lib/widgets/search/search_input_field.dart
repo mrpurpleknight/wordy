@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 
@@ -33,6 +34,10 @@ class _SearchInputFieldState extends State<SearchInputField> {
           isOpen = true;
         });
       }
+      if(_controller.text == '')
+        setState(() {
+          isOpen = false;
+        });
     });
   }
 
@@ -47,7 +52,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
 
   void goToDetail(String name) {
     Word.byName(name).then((value) {
-      if(value != null) {
+      if (value != null) {
         refreshInput(_controller);
         Navigator.of(context)
             .pushNamed(WordDetailScreen.routeName, arguments: value);
@@ -63,9 +68,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 15),
       height: 60,
@@ -90,13 +93,14 @@ class _SearchInputFieldState extends State<SearchInputField> {
                   showWhenUnlinked: false,
                   offset: Offset(-15, 60.0 - 10),
                   child: Material(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
                     elevation: 4.0,
                     child: FutureBuilder<List<Word>>(
-                      future: Word.suggestions(_controller.text, 5),
+                      future: Word.suggestions(_controller.text, 6),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState == ConnectionState.done) {
                           return Container(
-                            width: size.width * 0.75,
+                            width: size.width * 0.77,
                             constraints: BoxConstraints(
                               maxHeight: size.height * 0.29,
                             ),
@@ -108,20 +112,22 @@ class _SearchInputFieldState extends State<SearchInputField> {
                           return Container(
                             width: size.width * 0.75,
                             child: ListTile(
-                              title: Text(
-                                '...',
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headline5,
+                              title: SizedBox(
+                                width: 50,
+                                height: 10,
+                                child: Padding(
+                                  padding: EdgeInsets.only(right: size.width * 0.47),
+                                  child: SpinKitThreeBounce(
+                                    size: 13,
+                                    color: Theme.of(context).backgroundColor,
+                                  ),
+                                ),
                               ),
                               trailing: Padding(
                                 padding: const EdgeInsets.only(right: 5.0),
                                 child: Icon(
                                   Icons.search,
-                                  color: Theme
-                                      .of(context)
-                                      .backgroundColor,
+                                  color: Theme.of(context).backgroundColor,
                                   size: 30,
                                 ),
                               ),
@@ -157,9 +163,7 @@ class _SearchInputFieldState extends State<SearchInputField> {
             child: Icon(
               Icons.search,
               size: 35,
-              color: Theme
-                  .of(context)
-                  .backgroundColor,
+              color: Theme.of(context).backgroundColor,
             ),
           ),
         ],
