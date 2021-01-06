@@ -81,19 +81,20 @@ class _SearchBarState extends State<SearchBar> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Expanded(
-              child: SuggestionsOverlay(
-            _controller,
-            isOpen,
-            child: CompositedTransformTarget(
-              link: _layerLink,
-              child: SearchInputField(
-                  controller: _controller,
-                  focusNode: _focusNode,
-                  onSubmitCallback: goToDetail),
+            child: SuggestionsOverlay(
+              _controller,
+              isOpen,
+              child: CompositedTransformTarget(
+                link: _layerLink,
+                child: SearchInputField(
+                    controller: _controller,
+                    focusNode: _focusNode,
+                    onSubmitCallback: goToDetail),
+              ),
+              layerLink: _layerLink,
+              callback: refreshInput,
             ),
-            layerLink: _layerLink,
-            callback: refreshInput,
-          )),
+          ),
           InkWell(
             onTap: () => goToDetail(_controller.text),
             child: Icon(
