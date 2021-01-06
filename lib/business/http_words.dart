@@ -1,20 +1,21 @@
 import 'dart:convert';
 
-import 'package:http/http.dart' as http;
+import 'package:wordy/business/http_client.dart';
 import 'package:wordy/business/json/strategy/json_suggestions_decoder.dart';
 import 'package:wordy/business/json/strategy/json_vocabulary_decoder.dart';
 import 'package:wordy/constants.dart';
+import 'package:http/http.dart' as http;
 
 import '../providers/word.dart';
 
 class HttpWords {
   static HttpWords _instance;
-  final http.Client _client;
+  final HttpClient _client;
   final JsonVocabularyDecoder _vocabularyDecoder;
   final JsonSuggestionsDecoder _suggestionsDecoder;
 
   HttpWords._internal()
-      : _client = new http.Client(),
+      : _client = HttpClient(),
         _vocabularyDecoder = JsonVocabularyDecoder(),
         _suggestionsDecoder = JsonSuggestionsDecoder();
 
@@ -26,8 +27,8 @@ class HttpWords {
   Future<Word> get randomWord async {
     Word toReturn;
     while (toReturn == null) {
-      http.Response stateResponse = await _client.get(randomWordUrl);
-      dynamic json = jsonDecode(stateResponse.body);
+      http.Response response = await _client.getRequest(randomWordUrl, null);
+      dynamic json = jsonDecode(response.body);
       //the API does return only the string corresponding to the word name
       getWordFromName(json[0]).then((value) => toReturn = value);
     }
@@ -48,7 +49,7 @@ class HttpWords {
       String wordName, int limit) async {
     List<Word> toReturn = [];
     String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
-    http.Response response = await _client.get(preparedUrl);
+    http.Response response = await _client.getRequest(preparedUrl, null);
     List<String> suggestionStringList =
         _suggestionsDecoder.decode(response.body);
     if (suggestionStringList != null) {
@@ -64,14 +65,15 @@ class HttpWords {
   }
 
   Future<Word> getWordFromName(String name) async {
-    http.Response response = await _client.get(
+    http.Response response = await _client.getRequest(
       '$vocabularyWordUrl$name',
-      headers: <String, String>{
+      <String, String>{
         'x-rapidapi-key': x_rapid_key,
         'x_rapid_host': x_rapid_host,
         'Content-Type': 'application/json; charset=UTF-8',
       },
     );
+
     return _vocabularyDecoder.decode(response.body);
   }
 }

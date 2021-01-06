@@ -4,38 +4,39 @@ import 'package:wordy/providers/words.dart';
 import 'package:provider/provider.dart';
 
 class ToolBar extends StatefulWidget {
-  final Word _word;
-
-  ToolBar(this._word);
-
   @override
   _ToolBarState createState() => _ToolBarState();
 }
 
 class _ToolBarState extends State<ToolBar> {
-  Words words;
-  Color favoriteColor;
+  Words _words;
+  Future<Word> _wordFuture;
+  Color _favoriteColor;
 
   @override
   void initState() {
     super.initState();
-    words = Provider.of<Words>(context, listen: false);
-    if (words.isPresent(widget._word))
-      favoriteColor = Colors.redAccent;
+    _words = Provider.of<Words>(context, listen: false);
+    _wordFuture = Provider.of<Future<Word>>(context, listen: false);
+  }
+
+  void setColor(Word word) {
+    if (_words.isPresent(word))
+      _favoriteColor = Colors.redAccent;
     else
-      favoriteColor = Colors.white38;
+      _favoriteColor = Colors.white38;
   }
 
   void setFavorite(Word word) {
-    if (words.isPresent(word)) {
-      words.removeWord(word);
+    if (_words.isPresent(word)) {
+      _words.removeWord(word);
       setState(() {
-        favoriteColor = Colors.white38;
+        _favoriteColor = Colors.white38;
       });
     } else {
-      words.addWord(word);
+      _words.addWord(word);
       setState(() {
-        favoriteColor = Colors.redAccent;
+        _favoriteColor = Colors.redAccent;
       });
     }
   }
@@ -45,17 +46,34 @@ class _ToolBarState extends State<ToolBar> {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(left: size.width * 0.6, top: 10),
-      child: InkWell(
-        onTap: () {
-          if (widget._word != null)
-            setFavorite(widget._word);
-        },
-        child: Icon(
-          Icons.favorite,
-          size: 55,
-          color: favoriteColor,
-        ),
-      ),
+      child: FutureBuilder<Word>(
+          future: _wordFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('error');
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
+              return InkWell(
+                onTap: () {},
+                child: Icon(
+                  Icons.favorite,
+                  size: 55,
+                  color: Colors.white38,
+                ),
+              );
+            } else {
+              setColor(snapshot.data);
+              return InkWell(
+                onTap: () {
+                  setFavorite(snapshot.data);
+                },
+                child: Icon(
+                  Icons.favorite,
+                  size: 55,
+                  color: _favoriteColor,
+                ),
+              );
+            }
+          }),
     );
   }
 }

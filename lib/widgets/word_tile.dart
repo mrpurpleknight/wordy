@@ -1,16 +1,19 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:wordy/providers/word.dart';
 
 class WordTile extends StatelessWidget {
-  final Word _word;
-
-  WordTile(this._word);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    Future<Word> futureWord = Provider.of<Future<Word>>(context, listen: false);
+
     return Container(
       padding: EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
       height: size.height * 0.6,
@@ -27,41 +30,71 @@ class WordTile extends StatelessWidget {
           ),
         ],
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(_word.name, style: Theme.of(context).textTheme.headline2),
-          Padding(
-            padding: EdgeInsets.only(top: 10, bottom: 17),
-            child: Text(
-              _word.partOfSpeech,
-              style: Theme.of(context).textTheme.headline3,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.only(top: 15, bottom: 35),
-            child: TyperAnimatedTextKit(
-              text: [
-                '1. ${_word.definition}',
-              ],
-              textStyle: Theme.of(context).textTheme.headline3,
-              repeatForever: false,
-              speed: Duration(milliseconds: 35),
-              totalRepeatCount: 1,
-            ),
-          ),
-          (_word.examplePhrase == null)
-              ? Text('')
-              : TyperAnimatedTextKit(
-                  text: [
-                    _word.examplePhrase,
-                  ],
-                  textStyle: Theme.of(context).textTheme.headline4,
-                  repeatForever: false,
-                  speed: Duration(milliseconds: 40),
-                  totalRepeatCount: 1,
-                )
-        ],
+      child: FutureBuilder<Word>(
+          future: futureWord,
+          builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Text('Error');
+            }
+            else if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                  child: SpinKitWave(
+                    color: Colors.black.withOpacity(0.7),
+                    type: SpinKitWaveType.center,
+                    size: 35.0,
+                  ));
+            }
+            else {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(snapshot.data.name, style: Theme
+                      .of(context)
+                      .textTheme
+                      .headline2),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10, bottom: 17),
+                    child: Text(
+                      snapshot.data.partOfSpeech,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .headline3,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 15, bottom: 35),
+                    child: TyperAnimatedTextKit(
+                      text: [
+                        '1. ${snapshot.data.definition}',
+                      ],
+                      textStyle: Theme
+                          .of(context)
+                          .textTheme
+                          .headline3,
+                      repeatForever: false,
+                      speed: Duration(milliseconds: 35),
+                      totalRepeatCount: 1,
+                    ),
+                  ),
+                  (snapshot.data.examplePhrase == null)
+                      ? Text('')
+                      : TyperAnimatedTextKit(
+                    text: [
+                      snapshot.data.examplePhrase,
+                    ],
+                    textStyle: Theme
+                        .of(context)
+                        .textTheme
+                        .headline4,
+                    repeatForever: false,
+                    speed: Duration(milliseconds: 40),
+                    totalRepeatCount: 1,
+                  )
+                ],
+              );
+            }
+          }
       ),
     );
   }

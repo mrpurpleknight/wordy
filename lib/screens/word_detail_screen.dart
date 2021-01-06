@@ -30,6 +30,7 @@ class WordDetailScreen extends StatelessWidget {
         child: MultiProvider(
           providers: [
             ChangeNotifierProvider.value(value: Words.instance),
+            Provider.value(value: Future.sync(() => word)),
           ],
           child: SingleChildScrollView(
             child: Padding(
@@ -40,10 +41,11 @@ class WordDetailScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 40, right: 40, bottom: 25),
-                    child: WordTile(word),
+                    padding:
+                        const EdgeInsets.only(left: 40, right: 40, bottom: 25),
+                    child: WordTile(),
                   ),
-                  ToolBar(word),
+                  ToolBar(),
                 ],
               ),
             ),
