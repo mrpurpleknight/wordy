@@ -1,7 +1,5 @@
 import 'package:http/http.dart' as http;
 
-import 'failure_exception.dart';
-
 class WordyClient {
   final http.Client _client;
 

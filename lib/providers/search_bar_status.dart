@@ -7,9 +7,11 @@ class SearchBarStatus extends ChangeNotifier {
   final FocusNode _focusNode;
   bool _isVisible;
   String _textToSearch;
-  final Debouncing deb = Debouncing(duration: Duration(milliseconds: 250));
+  final Debouncing _deb;
 
-  SearchBarStatus(this._controller, this._focusNode) : _isVisible = false {
+  SearchBarStatus(this._controller, this._focusNode, {int milliseconds = 250})
+      : _isVisible = false,
+        _deb = Debouncing(duration: Duration(milliseconds: milliseconds)) {
     _focusNode.addListener(_focusNodeListener);
     _controller.addListener(_textControllerListener);
     _controller.addListener(_debounceTextToSearch);
@@ -26,7 +28,7 @@ class SearchBarStatus extends ChangeNotifier {
   }
 
   void _debounceTextToSearch() {
-    deb.debounce(() {
+    _deb.debounce(() {
       _textToSearch = _controller.text;
       notifyListeners();
     });
@@ -49,5 +51,4 @@ class SearchBarStatus extends ChangeNotifier {
     _focusNode.unfocus();
     _controller.text = '';
   }
-
 }
