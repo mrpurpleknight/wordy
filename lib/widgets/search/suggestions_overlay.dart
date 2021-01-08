@@ -1,20 +1,17 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:provider/provider.dart';
 import 'package:throttling/throttling.dart';
 import 'package:wordy/business/failure_exception.dart';
-import 'package:wordy/providers/suggestions.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/internet/snackbar_mixin.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
 import 'package:snack/snack.dart';
 
-// ignore: must_be_immutable
 class SuggestionsOverlay extends StatefulWidget {
   final Widget _child;
   final TextEditingController _controller;
-  bool _isVisible;
+  final bool _isVisible;
   final LayerLink _layerLink;
   final Function _callback;
 
@@ -32,29 +29,58 @@ class SuggestionsOverlay extends StatefulWidget {
   _SuggestionsOverlayState createState() => _SuggestionsOverlayState();
 }
 
-class _SuggestionsOverlayState extends State<SuggestionsOverlay> {
-  String _textToSearch;
+class _SuggestionsOverlayState extends State<SuggestionsOverlay>
+    with SnackBarMixin {
   Future<List<Word>> suggestionsFuture;
-  Object lastFailure;
+  String _textToSearch = '';
+  FailureException failure;
 
   @override
   void initState() {
     super.initState();
-
-    _textToSearch = '';
-    final Debouncing deb = Debouncing(duration: Duration(milliseconds: 200));
+    final Debouncing deb = Debouncing(duration: Duration(milliseconds: 250));
 
     widget._controller.addListener(() {
-      if (widget._controller.text != null) {
-        setState(() {
-          _textToSearch = widget._controller.text;
-          suggestionsFuture =
-              Word.suggestions(_textToSearch, 6).catchError((error) {
-            lastFailure = error;
+      deb.debounce(() {
+        if (widget._controller.text != null) {
+          setState(() {
+            _textToSearch = widget._controller.text;
+            suggestionsFuture =
+                Word.suggestions(_textToSearch, 6).catchError((error) {
+              failure = error;
+              showSnackBar(error.toString(), context);
+            });
           });
-        });
-      }
+        }
+      });
     });
+  }
+
+  Widget buildLoadingTile(double screenWidth) {
+    return Container(
+      width: screenWidth * 0.77,
+      child: ListTile(
+        title: SizedBox(
+          width: 50,
+          height: 10,
+          child: Padding(
+            padding: EdgeInsets.only(right: screenWidth * 0.45),
+            child: SpinKitThreeBounce(
+              size: 13,
+              color: Theme.of(context).backgroundColor,
+            ),
+          ),
+        ),
+        trailing: Padding(
+          padding: const EdgeInsets.only(right: 5.0),
+          child: Icon(
+            Icons.search,
+            color: Theme.of(context).backgroundColor,
+            size: 30,
+          ),
+        ),
+      ),
+    );
   }
 
   @override
@@ -76,39 +102,10 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay> {
             initialData: [Word.empty()],
             future: suggestionsFuture,
             builder: (context, snapshot) {
-              if (lastFailure != null) {
-                return Center(
-                  child: Text(lastFailure.toString()),
-                );
-              } else if (snapshot.hasError) {
-                return Center(
-                  child: Text(snapshot.error.toString()),
-                );
-              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                return Container(
-                  width: size.width * 0.77,
-                  child: ListTile(
-                    title: SizedBox(
-                      width: 50,
-                      height: 10,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: size.width * 0.45),
-                        child: SpinKitThreeBounce(
-                          size: 13,
-                          color: Theme.of(context).backgroundColor,
-                        ),
-                      ),
-                    ),
-                    trailing: Padding(
-                      padding: const EdgeInsets.only(right: 5.0),
-                      child: Icon(
-                        Icons.search,
-                        color: Theme.of(context).backgroundColor,
-                        size: 30,
-                      ),
-                    ),
-                  ),
-                );
+              if (failure != null ||
+                  snapshot.hasError ||
+                  snapshot.connectionState == ConnectionState.waiting) {
+                return buildLoadingTile(size.width);
               } else {
                 return Container(
                   width: size.width * 0.77,
