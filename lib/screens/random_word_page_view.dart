@@ -16,7 +16,6 @@ class RandomWordPageView extends StatelessWidget {
           return Provider(
             create: (_) => Word.random(),
             child: RandomWordScreen(),
-            lazy: false,
           );
         });
   }

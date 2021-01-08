@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/providers/input_status.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 
 class SuggestionTile extends StatelessWidget {
   final Word _word;
 
-  final TextEditingController controller;
-  final Function refreshInputCallback;
-
-  SuggestionTile(this._word, {this.controller, this.refreshInputCallback});
+  SuggestionTile(this._word);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        refreshInputCallback(controller);
-
+        Provider.of<InputStatus>(context, listen: false).refreshInput();
         Navigator.of(context)
             .pushNamed(WordDetailScreen.routeName, arguments: _word);
       },

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:wordy/widgets/tool_bar.dart';
-import 'package:wordy/widgets/word_tile.dart';
+import 'package:wordy/widgets/words/word_tile.dart';
 import 'package:provider/provider.dart';
 
 import '../constants.dart';
@@ -42,7 +42,7 @@ class WordDetailScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 40, right: 40, bottom: 25),
+                        const EdgeInsets.only(left: 40, right: 40, bottom: 25, top: 35),
                     child: WordTile(),
                   ),
                   ToolBar(),

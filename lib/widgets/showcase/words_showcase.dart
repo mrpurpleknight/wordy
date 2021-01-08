@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/providers/word.dart';
-import 'package:wordy/widgets/word_tile_small.dart';
+import 'package:wordy/widgets/words/word_tile_small.dart';
 
 class WordsShowcase extends StatelessWidget {
 

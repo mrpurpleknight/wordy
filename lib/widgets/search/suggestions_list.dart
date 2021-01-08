@@ -4,10 +4,8 @@ import 'package:wordy/widgets/search/suggestion_tile.dart';
 
 class SuggestionsList extends StatelessWidget {
   final List<Word> words;
-  final TextEditingController controller;
-  final Function refreshInputCallback;
 
-  SuggestionsList(this.words, {this.controller, this.refreshInputCallback});
+  SuggestionsList(this.words);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +17,7 @@ class SuggestionsList extends StatelessWidget {
           padding: EdgeInsets.zero,
           itemCount: words.length,
           itemBuilder: (context, index) {
-            return SuggestionTile(words.elementAt(index), controller: controller, refreshInputCallback: refreshInputCallback);
+            return SuggestionTile(words.elementAt(index));
           }),
     );
   }

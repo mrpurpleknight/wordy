@@ -3,7 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wordy/providers/words.dart';
-import 'package:wordy/widgets/list/words_list.dart';
+import 'package:wordy/widgets/words/words_list.dart';
 import 'package:provider/provider.dart';
 
 class WordsListScreen extends StatelessWidget {

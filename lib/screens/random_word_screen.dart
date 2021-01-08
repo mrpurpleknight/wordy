@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:wordy/constants.dart';
-import 'package:wordy/widgets/word_tile.dart';
+import 'package:wordy/widgets/words/word_tile.dart';
 import 'package:wordy/widgets/tool_bar.dart';
 
 class RandomWordScreen extends StatefulWidget {
@@ -28,7 +28,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 40, left: 40, right: 40, bottom: 25),
+                  top: 45, left: 40, right: 40, bottom: 25),
               child: WordTile(),
             ),
             ToolBar(),

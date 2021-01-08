@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/constants.dart';
 import 'package:wordy/providers/words.dart';
-import 'package:wordy/widgets/list/word_list_tile.dart';
-import 'package:wordy/widgets/word_tile_small.dart';
+import 'package:wordy/widgets/words/word_list_tile.dart';
+import 'package:wordy/widgets/words/word_tile_small.dart';
 import 'package:provider/provider.dart';
 
 class WordsList extends StatefulWidget {

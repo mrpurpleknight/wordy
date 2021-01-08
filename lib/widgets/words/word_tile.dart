@@ -3,13 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/business/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 
-class WordTile extends StatelessWidget {
+class WordTile extends StatefulWidget {
+  @override
+  _WordTileState createState() => _WordTileState();
+}
+
+class _WordTileState extends State<WordTile> with SnackBarMixin {
+  FailureException lastFailure;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Future<Word> futureWord = Provider.of<Future<Word>>(context, listen: false);
+    Future<Word> futureWord =
+        Provider.of<Future<Word>>(context, listen: false).catchError((e) {
+      lastFailure = e;
+      showSnackBar(e.toString(), context);
+    });
 
     return Container(
       padding: EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
@@ -31,9 +44,9 @@ class WordTile extends StatelessWidget {
       child: FutureBuilder<Word>(
           future: futureWord,
           builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error');
-            } else if (snapshot.connectionState == ConnectionState.waiting) {
+            if (snapshot.hasError ||
+                snapshot.connectionState == ConnectionState.waiting ||
+                lastFailure != null) {
               return Center(
                   child: SpinKitWave(
                 color: Colors.black.withOpacity(0.7),

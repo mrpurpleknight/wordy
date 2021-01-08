@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/providers/input_status.dart';
 
 class SearchInputField extends StatelessWidget {
-  final TextEditingController _controller;
   final Function _onSubmitCallback;
-  final FocusNode _focusNode;
 
-  SearchInputField({
-    @required TextEditingController controller,
-    @required Function onSubmitCallback,
-    @required FocusNode focusNode,
-  })  : _controller = controller,
-        _onSubmitCallback = onSubmitCallback,
-        _focusNode = focusNode;
+  SearchInputField(this._onSubmitCallback);
 
   @override
   Widget build(BuildContext context) {
+    InputStatus inputStatus = Provider.of<InputStatus>(context);
     return TextField(
       textCapitalization: TextCapitalization.words,
-      controller: _controller,
-      onSubmitted: (String text) => _onSubmitCallback(text),
-      focusNode: _focusNode,
+      controller: inputStatus.controller,
+      onSubmitted: (String text) {
+        inputStatus.refreshInput();
+        _onSubmitCallback(text);},
+      focusNode: inputStatus.focusNode,
       style: TextStyle(
           fontFamily: 'Merriweather',
           fontWeight: FontWeight.w800,

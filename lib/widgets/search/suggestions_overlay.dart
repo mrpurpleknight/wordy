@@ -1,29 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:throttling/throttling.dart';
 import 'package:wordy/business/failure_exception.dart';
+import 'package:wordy/providers/input_status.dart';
 import 'package:wordy/providers/word.dart';
-import 'package:wordy/widgets/internet/snackbar_mixin.dart';
+import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
-import 'package:snack/snack.dart';
 
 class SuggestionsOverlay extends StatefulWidget {
   final Widget _child;
-  final TextEditingController _controller;
   final bool _isVisible;
   final LayerLink _layerLink;
-  final Function _callback;
 
   SuggestionsOverlay(
-    this._controller,
-    this._isVisible, {
-    @required Widget child,
-    @required LayerLink layerLink,
-    @required Function callback,
-  })  : _child = child,
-        _layerLink = layerLink,
-        _callback = callback;
+      {@required bool isVisible,
+      @required Widget child,
+      @required LayerLink layerLink})
+      : _child = child,
+        _isVisible = isVisible,
+        _layerLink = layerLink;
 
   @override
   _SuggestionsOverlayState createState() => _SuggestionsOverlayState();
@@ -31,23 +28,25 @@ class SuggestionsOverlay extends StatefulWidget {
 
 class _SuggestionsOverlayState extends State<SuggestionsOverlay>
     with SnackBarMixin {
-  Future<List<Word>> suggestionsFuture;
+  Future<List<Word>> _suggestionsFuture;
   String _textToSearch = '';
-  FailureException failure;
+  FailureException _failure;
 
   @override
   void initState() {
     super.initState();
     final Debouncing deb = Debouncing(duration: Duration(milliseconds: 250));
 
-    widget._controller.addListener(() {
+    final InputStatus inputStatus =
+        Provider.of<InputStatus>(context, listen: false);
+    inputStatus.controller.addListener(() {
       deb.debounce(() {
-        if (widget._controller.text != null) {
+        if (inputStatus.controller.text != null) {
           setState(() {
-            _textToSearch = widget._controller.text;
-            suggestionsFuture =
+            _textToSearch = inputStatus.controller.text;
+            _suggestionsFuture =
                 Word.suggestions(_textToSearch, 6).catchError((error) {
-              failure = error;
+              _failure = error;
               showSnackBar(error.toString(), context);
             });
           });
@@ -100,9 +99,9 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay>
           elevation: 4.0,
           child: FutureBuilder<List<Word>>(
             initialData: [Word.empty()],
-            future: suggestionsFuture,
+            future: _suggestionsFuture,
             builder: (context, snapshot) {
-              if (failure != null ||
+              if (_failure != null ||
                   snapshot.hasError ||
                   snapshot.connectionState == ConnectionState.waiting) {
                 return buildLoadingTile(size.width);
@@ -112,9 +111,7 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay>
                   constraints: BoxConstraints(
                     maxHeight: size.height * 0.29,
                   ),
-                  child: SuggestionsList(snapshot.data,
-                      refreshInputCallback: widget._callback,
-                      controller: widget._controller),
+                  child: SuggestionsList(snapshot.data),
                 );
               }
             },
