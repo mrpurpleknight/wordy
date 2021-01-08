@@ -4,6 +4,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/widgets/search/search_bar.dart';
 import 'package:showcaseview/showcase.dart';
 import 'package:showcaseview/showcase_widget.dart';
@@ -70,14 +71,15 @@ class _MainScreenState extends State<MainScreen> {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Padding(
-                        padding:
-                            const EdgeInsets.only(top: 21, left: 32, bottom: 50),
+                        padding: const EdgeInsets.only(
+                            top: 21, left: 32, bottom: 50),
                         child: Text(
                           'Wordy',
                           style: TextStyle(
                               fontSize: 44,
                               color: Colors.white,
-                              fontWeight: FontWeight.w900, fontFamily: 'Merriweather'),
+                              fontWeight: FontWeight.w900,
+                              fontFamily: 'Merriweather'),
                         ),
                       ),
                       Column(
@@ -94,7 +96,10 @@ class _MainScreenState extends State<MainScreen> {
                                   fontWeight: FontWeight.w900),
                             ),
                           ),
-                          SearchBar(),
+                          ChangeNotifierProvider(
+                              create: (_) => SearchBarStatus(
+                                  TextEditingController(), FocusNode()),
+                              child: SearchBar()),
                           Showcase.withWidget(
                             contentPadding: EdgeInsets.all(8),
                             key: _one,
@@ -144,7 +149,8 @@ class _MainScreenState extends State<MainScreen> {
                               ),
                               child: ShowcaseHeader()),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 5.0),
                             child: WordsShowcase(words.getLast5Word()),
                           ),
                         ],

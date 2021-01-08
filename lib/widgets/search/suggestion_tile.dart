@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/providers/input_status.dart';
+import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 
@@ -13,7 +13,7 @@ class SuggestionTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Provider.of<InputStatus>(context, listen: false).refreshInput();
+        Provider.of<SearchBarStatus>(context, listen: false).refreshInput();
         Navigator.of(context)
             .pushNamed(WordDetailScreen.routeName, arguments: _word);
       },

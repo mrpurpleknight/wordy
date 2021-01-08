@@ -83,7 +83,7 @@ class _ToolBarState extends State<ToolBar> {
                 size: 55,
                 bubblesSize: 50,
                 circleColor: CircleColor(
-                  start: verbColor,
+                  start: Color(0xFFF64F59),
                   end: Color(0xFFEF473A),
                 ),
                 bubblesColor: BubblesColor(

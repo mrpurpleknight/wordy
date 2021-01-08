@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/providers/input_status.dart';
+import 'package:wordy/providers/search_bar_status.dart';
 
 class SearchInputField extends StatelessWidget {
   final Function _onSubmitCallback;
@@ -9,7 +9,7 @@ class SearchInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    InputStatus inputStatus = Provider.of<InputStatus>(context);
+    SearchBarStatus inputStatus = Provider.of<SearchBarStatus>(context);
     return TextField(
       textCapitalization: TextCapitalization.words,
       controller: inputStatus.controller,
