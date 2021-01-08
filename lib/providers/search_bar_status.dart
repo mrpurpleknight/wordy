@@ -33,7 +33,7 @@ class SearchBarStatus extends ChangeNotifier {
   }
 
   void _textControllerListener() {
-    if (_controller.text != '') {
+    if (_controller.text != '' && _focusNode.hasFocus) {
       setOpen(true);
     }
     if (_controller.text == '') {
@@ -50,10 +50,4 @@ class SearchBarStatus extends ChangeNotifier {
     _controller.text = '';
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-    focusNode.dispose();
-  }
 }

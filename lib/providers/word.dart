@@ -1,8 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-import 'package:wordy/business/failure_exception.dart';
 import 'package:wordy/business/http_words.dart';
-import 'package:wordy/constants.dart';
 
 class Word extends Equatable {
   final String name;
@@ -18,38 +15,6 @@ class Word extends Equatable {
     this.definition,
     this.examplePhrase,
   }) : this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
-
-  Color get color {
-    switch (partOfSpeech) {
-      case 'noun':
-        return nounColor;
-        break;
-      case 'verb':
-        return verbColor;
-        break;
-      case 'article':
-        return articleColor;
-        break;
-      case 'pronoun':
-        return pronounColor;
-        break;
-      case 'preposition':
-        return prepositionColor;
-        break;
-      case 'adjective':
-        return adjectiveColor;
-        break;
-      case 'adverb':
-        return adverbColor;
-        break;
-      case 'conjunction':
-        return conjunctionColor;
-        break;
-      default:
-        return Colors.black54;
-        break;
-    }
-  }
 
   String get partOfSpeechAbbreviation {
     switch (partOfSpeech) {

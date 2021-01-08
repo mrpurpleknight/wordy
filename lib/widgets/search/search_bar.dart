@@ -26,15 +26,9 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
   }
 
   @override
-  void dispose() {
-    _searchBarStatus.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    SearchBarStatus searchBarStatus = Provider.of<SearchBarStatus>(context);
+    _searchBarStatus = Provider.of<SearchBarStatus>(context);
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 15),
       height: 60,
@@ -57,7 +51,7 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
             ),
           ),
           InkWell(
-            onTap: () => goToDetail(searchBarStatus.controller.text),
+            onTap: () => goToDetail(_searchBarStatus.controller.text),
             child: Icon(
               Icons.search,
               size: 35,
