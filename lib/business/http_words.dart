@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:wordy/business/http_client.dart';
+import 'package:wordy/business/failure_exception.dart';
+import 'package:wordy/business/wordy_client.dart';
 import 'package:wordy/business/json/strategy/json_suggestions_decoder.dart';
 import 'package:wordy/business/json/strategy/json_vocabulary_decoder.dart';
 import 'package:wordy/constants.dart';
@@ -10,12 +12,16 @@ import '../providers/word.dart';
 
 class HttpWords {
   static HttpWords _instance;
-  final HttpClient _client;
+  final WordyClient _suggestionsClient;
+  final WordyClient _randomClient;
+  final WordyClient _vocabularyClient;
   final JsonVocabularyDecoder _vocabularyDecoder;
   final JsonSuggestionsDecoder _suggestionsDecoder;
 
   HttpWords._internal()
-      : _client = HttpClient(),
+      : _suggestionsClient = WordyClient(),
+        _randomClient = WordyClient(),
+        _vocabularyClient = WordyClient(),
         _vocabularyDecoder = JsonVocabularyDecoder(),
         _suggestionsDecoder = JsonSuggestionsDecoder();
 
@@ -26,11 +32,16 @@ class HttpWords {
 
   Future<Word> get randomWord async {
     Word toReturn;
-    while (toReturn == null) {
-      http.Response response = await _client.getRequest(randomWordUrl, null);
-      dynamic json = jsonDecode(response.body);
-      //the API does return only the string corresponding to the word name
-      getWordFromName(json[0]).then((value) => toReturn = value);
+    try {
+      while (toReturn == null) {
+        http.Response response =
+            await _randomClient.getRequest(randomWordUrl, null);
+        dynamic json = jsonDecode(response.body);
+        //the API does return only the string corresponding to the word name
+        getWordFromName(json[0]).then((value) => toReturn = value);
+      }
+    } on IOException {
+      throw FailureException('No Internet connection');
     }
 
     return toReturn;
@@ -48,31 +59,41 @@ class HttpWords {
   Future<List<Word>> getSuggestionsFromWordName(
       String wordName, int limit) async {
     List<Word> toReturn = [];
-    String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
-    http.Response response = await _client.getRequest(preparedUrl, null);
-    List<String> suggestionStringList =
-        _suggestionsDecoder.decode(response.body);
-    if (suggestionStringList != null) {
-      for (int i = 0; i < suggestionStringList.length; i++) {
-        Word toInsert =
-            await getWordFromName(suggestionStringList.elementAt(i));
-        if (toInsert != null && !toReturn.contains(toInsert))
-          toReturn.add(toInsert);
+    try {
+      String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
+      http.Response response =
+          await _suggestionsClient.getRequest(preparedUrl, null);
+      List<String> suggestionStringList =
+          _suggestionsDecoder.decode(response.body);
+      if (suggestionStringList != null) {
+        for (int i = 0; i < suggestionStringList.length; i++) {
+          Word toInsert =
+              await getWordFromName(suggestionStringList.elementAt(i));
+          if (toInsert != null && !toReturn.contains(toInsert))
+            toReturn.add(toInsert);
+        }
       }
+    } on IOException {
+      throw FailureException('No Internet connection');
     }
 
     return toReturn;
   }
 
   Future<Word> getWordFromName(String name) async {
-    http.Response response = await _client.getRequest(
-      '$vocabularyWordUrl$name',
-      <String, String>{
-        'x-rapidapi-key': x_rapid_key,
-        'x_rapid_host': x_rapid_host,
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-    );
+    http.Response response;
+    try {
+      response = await _vocabularyClient.getRequest(
+        '$vocabularyWordUrl$name',
+        <String, String>{
+          'x-rapidapi-key': x_rapid_key,
+          'x_rapid_host': x_rapid_host,
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+      );
+    } on IOException {
+      throw FailureException('No Internet connection');
+    }
 
     return _vocabularyDecoder.decode(response.body);
   }

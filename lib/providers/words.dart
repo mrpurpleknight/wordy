@@ -16,6 +16,11 @@ class Words with ChangeNotifier {
     });
   }
 
+  List<Word> sortByName() {
+    List<Word> toOrder = _wordsList;
+    toOrder.sort((a, b) => a.name.compareTo(b.name));
+    return toOrder;
+  }
 
   static Words get instance {
     if(_instance == null)

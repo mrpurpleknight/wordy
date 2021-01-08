@@ -1,7 +1,7 @@
-class Failure {
+class FailureException implements Exception{
   String _message;
 
-  Failure(this._message);
+  FailureException(this._message);
 
   @override
   String toString() {

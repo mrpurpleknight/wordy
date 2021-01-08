@@ -6,12 +6,9 @@ import 'package:provider/provider.dart';
 import 'package:wordy/providers/word.dart';
 
 class WordTile extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     Future<Word> futureWord = Provider.of<Future<Word>>(context, listen: false);
 
     return Container(
@@ -21,6 +18,7 @@ class WordTile extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         color: Colors.white,
+        border: Border.all(color: Colors.black38, width: 1.7),
         boxShadow: [
           BoxShadow(
             color: Colors.black12.withOpacity(0.3),
@@ -35,31 +33,24 @@ class WordTile extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Text('Error');
-            }
-            else if (snapshot.connectionState == ConnectionState.waiting) {
+            } else if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                   child: SpinKitWave(
-                    color: Colors.black.withOpacity(0.7),
-                    type: SpinKitWaveType.center,
-                    size: 35.0,
-                  ));
-            }
-            else {
+                color: Colors.black.withOpacity(0.7),
+                type: SpinKitWaveType.center,
+                size: 35.0,
+              ));
+            } else {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(snapshot.data.name, style: Theme
-                      .of(context)
-                      .textTheme
-                      .headline2),
+                  Text(snapshot.data.name,
+                      style: Theme.of(context).textTheme.headline2),
                   Padding(
                     padding: EdgeInsets.only(top: 10, bottom: 17),
                     child: Text(
                       snapshot.data.partOfSpeech,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headline3,
+                      style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
                   Padding(
@@ -68,10 +59,7 @@ class WordTile extends StatelessWidget {
                       text: [
                         '1. ${snapshot.data.definition}',
                       ],
-                      textStyle: Theme
-                          .of(context)
-                          .textTheme
-                          .headline3,
+                      textStyle: Theme.of(context).textTheme.headline3,
                       repeatForever: false,
                       speed: Duration(milliseconds: 35),
                       totalRepeatCount: 1,
@@ -80,22 +68,18 @@ class WordTile extends StatelessWidget {
                   (snapshot.data.examplePhrase == null)
                       ? Text('')
                       : TyperAnimatedTextKit(
-                    text: [
-                      snapshot.data.examplePhrase,
-                    ],
-                    textStyle: Theme
-                        .of(context)
-                        .textTheme
-                        .headline4,
-                    repeatForever: false,
-                    speed: Duration(milliseconds: 40),
-                    totalRepeatCount: 1,
-                  )
+                          text: [
+                            snapshot.data.examplePhrase,
+                          ],
+                          textStyle: Theme.of(context).textTheme.headline4,
+                          repeatForever: false,
+                          speed: Duration(milliseconds: 40),
+                          totalRepeatCount: 1,
+                        )
                 ],
               );
             }
-          }
-      ),
+          }),
     );
   }
 }

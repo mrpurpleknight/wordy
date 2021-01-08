@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:like_button/like_button.dart';
+import 'package:wordy/constants.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:provider/provider.dart';
@@ -27,17 +29,19 @@ class _ToolBarState extends State<ToolBar> {
       _favoriteColor = Colors.white38;
   }
 
-  void setFavorite(Word word) {
+  Future<bool> setFavorite(Word word) async {
     if (_words.isPresent(word)) {
       _words.removeWord(word);
       setState(() {
         _favoriteColor = Colors.white38;
       });
+      return false;
     } else {
       _words.addWord(word);
       setState(() {
         _favoriteColor = Colors.redAccent;
       });
+      return true;
     }
   }
 
@@ -52,25 +56,41 @@ class _ToolBarState extends State<ToolBar> {
             if (snapshot.hasError) {
               return Text('error');
             } else if (snapshot.connectionState == ConnectionState.waiting) {
-              return InkWell(
-                onTap: () {},
-                child: Icon(
-                  Icons.favorite,
-                  size: 55,
-                  color: Colors.white38,
-                ),
+              return LikeButton(
+                isLiked: _words.isPresent(snapshot.data),
+                size: 55,
+                likeBuilder: (_) {
+                  return Icon(
+                    Icons.favorite,
+                    color: Colors.white38,
+                    size: 55,
+                  );
+                },
               );
             } else {
               setColor(snapshot.data);
-              return InkWell(
-                onTap: () {
-                  setFavorite(snapshot.data);
+              return LikeButton(
+                isLiked: _words.isPresent(snapshot.data),
+                onTap: (_) {
+                  return setFavorite(snapshot.data);
                 },
-                child: Icon(
-                  Icons.favorite,
-                  size: 55,
-                  color: _favoriteColor,
+                size: 55,
+                bubblesSize: 50,
+                circleColor: CircleColor(
+                  start: verbColor,
+                  end: Color(0xFFEF473A),
                 ),
+                bubblesColor: BubblesColor(
+                  dotPrimaryColor: Colors.redAccent,
+                  dotSecondaryColor: Colors.red,
+                ),
+                likeBuilder: (_) {
+                  return Icon(
+                    Icons.favorite,
+                    color: _favoriteColor,
+                    size: 55,
+                  );
+                },
               );
             }
           }),

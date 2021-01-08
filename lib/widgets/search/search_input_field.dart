@@ -16,6 +16,7 @@ class SearchInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      textCapitalization: TextCapitalization.words,
       controller: _controller,
       onSubmitted: (String text) => _onSubmitCallback(text),
       focusNode: _focusNode,

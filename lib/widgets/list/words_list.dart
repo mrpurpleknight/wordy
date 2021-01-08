@@ -1,29 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/constants.dart';
 import 'package:wordy/providers/words.dart';
+import 'package:wordy/widgets/list/word_list_tile.dart';
 import 'package:wordy/widgets/word_tile_small.dart';
 import 'package:provider/provider.dart';
 
-class WordsGrid extends StatefulWidget {
+class WordsList extends StatefulWidget {
   @override
-  _WordsGridState createState() => _WordsGridState();
+  _WordsListState createState() => _WordsListState();
 }
 
-class _WordsGridState extends State<WordsGrid> {
+class _WordsListState extends State<WordsList> {
   @override
   Widget build(BuildContext context) {
     Words words = Provider.of<Words>(context);
-    return SliverGrid(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2, childAspectRatio: 0.675),
+    return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 10),
-            child: SmallWordTile(words.getList().elementAt(index)),
+            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
+            child: WordListTile(words.sortByName().elementAt(index)),
           );
         },
-        childCount: words.getList().length,
+        childCount: words.sortByName().length,
       ),
     );
   }

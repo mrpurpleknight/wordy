@@ -1,26 +1,63 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:wordy/business/failure_exception.dart';
 import 'package:wordy/business/http_words.dart';
+import 'package:wordy/constants.dart';
 
-class Word extends Equatable{
+class Word extends Equatable {
   final String name;
   final String partOfSpeech;
   final String definition;
   final String examplePhrase;
 
+  Word.empty() : name = '', partOfSpeech = '', definition = '', examplePhrase = '';
+
   Word({
-    this.name,
+    String name,
     this.partOfSpeech,
     this.definition,
     this.examplePhrase,
-  });
+  }) : this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+  Color get color {
+    switch (partOfSpeech) {
+      case 'noun':
+        return nounColor;
+        break;
+      case 'verb':
+        return verbColor;
+        break;
+      case 'article':
+        return articleColor;
+        break;
+      case 'pronoun':
+        return pronounColor;
+        break;
+      case 'preposition':
+        return prepositionColor;
+        break;
+      case 'adjective':
+        return adjectiveColor;
+        break;
+      case 'adverb':
+        return adverbColor;
+        break;
+      case 'conjunction':
+        return conjunctionColor;
+        break;
+      default:
+        return Colors.black54;
+        break;
+    }
+  }
 
   String get partOfSpeechAbbreviation {
-    switch(partOfSpeech) {
+    switch (partOfSpeech) {
       case 'article':
         return 'art.';
         break;
       case 'pronoun':
-        return 'prop.';
+        return 'pron.';
         break;
       case 'preposition':
         return 'prep.';
@@ -48,7 +85,7 @@ class Word extends Equatable{
     return HttpWords.instance.getRandomWords(number);
   }
 
-  static Future<Word> byName(String name) async{
+  static Future<Word> byName(String name) async {
     return HttpWords.instance.getWordFromName(name);
   }
 

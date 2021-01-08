@@ -13,12 +13,13 @@ class SmallWordTile extends StatelessWidget {
     return InkWell(
       onTap: () => Navigator.of(context).pushNamed(WordDetailScreen.routeName, arguments: word),
       child: Container(
-        padding: EdgeInsets.only(top: 30, right: 17, left: 19, bottom: 23),
+        padding: EdgeInsets.only(top: 30, right: 19, left: 19, bottom: 23),
         height: size.height * 0.359,
-        width: size.width * 0.482,
+        width: size.width * 0.5,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
+          border: Border.all(color: Colors.black38, width: 1.5),
           boxShadow: [
             BoxShadow(
               color: Colors.black12.withOpacity(0.3),

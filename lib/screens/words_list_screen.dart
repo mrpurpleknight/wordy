@@ -3,7 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wordy/providers/words.dart';
-import 'package:wordy/widgets/words_grid.dart';
+import 'package:wordy/widgets/list/words_list.dart';
 import 'package:provider/provider.dart';
 
 class WordsListScreen extends StatelessWidget {
@@ -14,17 +14,17 @@ class WordsListScreen extends StatelessWidget {
     return ChangeNotifierProvider.value(
       value: Words.instance,
       child: Scaffold(
-        floatingActionButton: Padding(
-          padding: EdgeInsets.only(right: 5, bottom: 22),
-          child: Transform.scale(
-            scale: 1.2,
-            child: FloatingActionButton(
-              onPressed: () {},
-              child: Icon(Icons.add),
-              backgroundColor: Theme.of(context).accentColor,
-            ),
-          ),
-        ),
+        // floatingActionButton: Padding(
+        //   padding: EdgeInsets.only(right: 5, bottom: 22),
+        //   child: Transform.scale(
+        //     scale: 1.2,
+        //     child: FloatingActionButton(
+        //       onPressed: () {},
+        //       child: Icon(Icons.add),
+        //       backgroundColor: Theme.of(context).accentColor,
+        //     ),
+        //   ),
+        // ),
         body: Container(
           color: Theme.of(context).backgroundColor,
           child: CustomScrollView(
@@ -72,7 +72,7 @@ class WordsListScreen extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
-              SliverPadding(padding: EdgeInsets.only(top: 6, left: 4, right: 4, bottom: 6), sliver: WordsGrid()),
+              SliverPadding(padding: EdgeInsets.all(9), sliver: WordsList()),
             ],
           ),
         ),

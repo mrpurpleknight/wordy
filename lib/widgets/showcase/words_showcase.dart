@@ -16,7 +16,7 @@ class WordsShowcase extends StatelessWidget {
         children: [
           ..._words.map((e) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 11),
               child: SmallWordTile(e),
             );
           }),

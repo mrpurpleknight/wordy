@@ -143,7 +143,10 @@ class _MainScreenState extends State<MainScreen> {
                                 left: 32,
                               ),
                               child: ShowcaseHeader()),
-                          WordsShowcase(words.getLast5Word()),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                            child: WordsShowcase(words.getLast5Word()),
+                          ),
                         ],
                       )
                     ],

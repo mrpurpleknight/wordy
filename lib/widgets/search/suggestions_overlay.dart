@@ -1,9 +1,14 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:provider/provider.dart';
 import 'package:throttling/throttling.dart';
+import 'package:wordy/business/failure_exception.dart';
+import 'package:wordy/providers/suggestions.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
+import 'package:snack/snack.dart';
 
 // ignore: must_be_immutable
 class SuggestionsOverlay extends StatefulWidget {
@@ -28,19 +33,27 @@ class SuggestionsOverlay extends StatefulWidget {
 }
 
 class _SuggestionsOverlayState extends State<SuggestionsOverlay> {
-
   String _textToSearch;
+  Future<List<Word>> suggestionsFuture;
+  Object lastFailure;
 
   @override
   void initState() {
     super.initState();
+
+    _textToSearch = '';
+    final Debouncing deb = Debouncing(duration: Duration(milliseconds: 200));
+
     widget._controller.addListener(() {
-      Debouncing deb = Debouncing(duration: Duration(milliseconds: 400));
-      deb.debounce(() {
+      if (widget._controller.text != null) {
         setState(() {
           _textToSearch = widget._controller.text;
+          suggestionsFuture =
+              Word.suggestions(_textToSearch, 6).catchError((error) {
+            lastFailure = error;
+          });
         });
-      });
+      }
     });
   }
 
@@ -60,20 +73,20 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           elevation: 4.0,
           child: FutureBuilder<List<Word>>(
-            future: Word.suggestions(_textToSearch, 6),
+            initialData: [Word.empty()],
+            future: suggestionsFuture,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.done) {
+              if (lastFailure != null) {
+                return Center(
+                  child: Text(lastFailure.toString()),
+                );
+              } else if (snapshot.hasError) {
+                return Center(
+                  child: Text(snapshot.error.toString()),
+                );
+              } else if (snapshot.connectionState == ConnectionState.waiting) {
                 return Container(
                   width: size.width * 0.77,
-                  constraints: BoxConstraints(
-                    maxHeight: size.height * 0.29,
-                  ),
-                  child: SuggestionsList(snapshot.data,
-                      refreshInputCallback: widget._callback, controller: widget._controller),
-                );
-              } else
-                return Container(
-                  width: size.width * 0.75,
                   child: ListTile(
                     title: SizedBox(
                       width: 50,
@@ -96,6 +109,17 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay> {
                     ),
                   ),
                 );
+              } else {
+                return Container(
+                  width: size.width * 0.77,
+                  constraints: BoxConstraints(
+                    maxHeight: size.height * 0.29,
+                  ),
+                  child: SuggestionsList(snapshot.data,
+                      refreshInputCallback: widget._callback,
+                      controller: widget._controller),
+                );
+              }
             },
           ),
         ),

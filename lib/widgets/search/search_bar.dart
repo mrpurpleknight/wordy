@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:wordy/providers/suggestions.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/widgets/search/search_input_field.dart';
