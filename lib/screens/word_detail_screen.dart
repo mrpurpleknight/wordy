@@ -42,7 +42,7 @@ class WordDetailScreen extends StatelessWidget {
                 children: [
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 40, right: 40, bottom: 25, top: 35),
+                        const EdgeInsets.only(left: 40, right: 40, bottom: 25, top: 5),
                     child: WordTile(),
                   ),
                   ToolBar(),

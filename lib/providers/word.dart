@@ -1,43 +1,60 @@
 import 'package:equatable/equatable.dart';
+import 'package:wordy/business/decoder/enum_string_converter.dart';
+import 'package:wordy/business/decoder/part_of_speech.dart';
 import 'package:wordy/business/http_words.dart';
 
 class Word extends Equatable {
-  final String name;
-  final String partOfSpeech;
-  final String definition;
-  final String examplePhrase;
+  final String _name;
+  final PartOfSpeech _partOfSpeech;
+  final String _definition;
+  final String _examplePhrase;
 
-  Word.empty() : name = '', partOfSpeech = '', definition = '', examplePhrase = '';
+  Word.empty()
+      : _name = '',
+        _partOfSpeech = PartOfSpeech.none,
+        _definition = '',
+        _examplePhrase = '';
 
   Word({
     String name,
-    this.partOfSpeech,
-    this.definition,
-    this.examplePhrase,
-  }) : this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
+    PartOfSpeech partOfSpeech,
+    String definition,
+    String examplePhrase,
+  })  : this._name = name.substring(0, 1).toUpperCase() + name.substring(1),
+        this._partOfSpeech = partOfSpeech,
+        this._definition = definition,
+        this._examplePhrase = examplePhrase;
+
+  String get name => _name;
+
+  String get partOfSpeech => EnumStringConverter.enumToString(_partOfSpeech);
+
+  String get definition => _definition;
+
+  String get examplePhrase => _examplePhrase;
 
   String get partOfSpeechAbbreviation {
-    switch (partOfSpeech) {
-      case 'article':
+    switch (_partOfSpeech) {
+      case PartOfSpeech.article:
         return 'art.';
         break;
-      case 'pronoun':
+      case PartOfSpeech.pronoun:
         return 'pron.';
         break;
-      case 'preposition':
+      case PartOfSpeech.preposition:
         return 'prep.';
         break;
-      case 'adjective':
+      case PartOfSpeech.adjective:
         return 'adj.';
         break;
-      case 'adverb':
+      case PartOfSpeech.adverb:
         return 'adv.';
         break;
-      case 'conjunction':
+      case PartOfSpeech.conjunction:
         return 'conj.';
         break;
       default:
-        return partOfSpeech;
+        return EnumStringConverter.enumToString(_partOfSpeech);
         break;
     }
   }
@@ -54,14 +71,14 @@ class Word extends Equatable {
     return HttpWords.instance.getWordFromName(name);
   }
 
-  static Future<List<Word>> suggestions(String name, int limit) async{
+  static Future<List<Word>> suggestions(String name, int limit) async {
     return HttpWords.instance.getSuggestionsFromWordName(name, limit);
   }
 
   factory Word.fromJson(Map<String, dynamic> json) {
     return Word(
         name: json['name'],
-        partOfSpeech: json['partOfSpeech'],
+        partOfSpeech: EnumStringConverter.stringToEnum(json['partOfSpeech']),
         definition: json['definition'],
         examplePhrase: json['examplePhrase']);
   }

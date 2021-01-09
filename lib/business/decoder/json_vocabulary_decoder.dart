@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-import 'package:wordy/business/json/strategy/json_decoder_strategy.dart';
+import 'package:wordy/business/decoder/enum_string_converter.dart';
+import 'package:wordy/business/decoder/json_decoder_strategy.dart';
 import 'package:wordy/providers/word.dart';
 
 class JsonVocabularyDecoder extends JsonDecoderStrategy {
@@ -18,7 +19,7 @@ class JsonVocabularyDecoder extends JsonDecoderStrategy {
       if (_getExample(wordResult.elementAt(i)) != null) {
         return Word(
             name: name,
-            partOfSpeech: _getPartOfSpeech(wordResult.elementAt(i)),
+            partOfSpeech: EnumStringConverter.stringToEnum(_getPartOfSpeech(wordResult.elementAt(i))),
             definition: _getDefinition(wordResult.elementAt(i)),
             examplePhrase: _getExample(wordResult.elementAt(i)));
       }
@@ -26,7 +27,7 @@ class JsonVocabularyDecoder extends JsonDecoderStrategy {
 
     return Word(
         name: name,
-        partOfSpeech: _getPartOfSpeech(wordResult.elementAt(0)),
+        partOfSpeech: EnumStringConverter.stringToEnum(_getPartOfSpeech(wordResult.elementAt(0))),
         definition: _getDefinition(wordResult.elementAt(0)),
         examplePhrase: null);
   }
