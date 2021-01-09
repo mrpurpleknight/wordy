@@ -26,11 +26,9 @@ class Word extends Equatable {
         this._examplePhrase = examplePhrase;
 
   String get name => _name;
-
   String get partOfSpeech => EnumStringConverter.enumToString(_partOfSpeech);
-
+  PartOfSpeech get partOfSpeechEnum => _partOfSpeech;
   String get definition => _definition;
-
   String get examplePhrase => _examplePhrase;
 
   String get partOfSpeechAbbreviation {

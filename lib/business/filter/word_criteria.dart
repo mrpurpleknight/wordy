@@ -1,5 +1,5 @@
 import 'package:wordy/providers/word.dart';
 
-abstract class WordCriteria<T> {
+abstract class WordCriteria {
   List<Word> filter(List<Word> list);
 }
