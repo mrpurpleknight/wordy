@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/business/failure_exception.dart';
+import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:wordy/constants.dart';
+import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/mixins/gradient_mixin.dart';
 import 'package:wordy/widgets/words/word_tile.dart';
 import 'package:wordy/widgets/tool_bar.dart';
 
@@ -10,29 +13,30 @@ class RandomWordScreen extends StatefulWidget {
 }
 
 class _RandomWordScreenState extends State<RandomWordScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin, GradientMixin {
   @override
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
-          gradient: LinearGradient(
-              colors: [gradientBegin, gradientMed, gradientEnd],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
+          gradient:
+              getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                  top: 45, left: 40, right: 40, bottom: 25),
-              child: WordTile(),
-            ),
-            ToolBar(),
-          ],
+        child: Provider(
+          create: (_) => Word.random(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 55, left: 40, right: 40, bottom: 25),
+                child: WordTile(),
+              ),
+              ToolBar(),
+            ],
+          ),
         ),
       ),
     );

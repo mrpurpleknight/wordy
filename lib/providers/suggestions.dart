@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart';
-import 'package:wordy/business/failure_exception.dart';
-import 'package:wordy/business/http_words.dart';
+import 'package:wordy/services/failure_exception.dart';
+import 'package:wordy/services/http_words.dart';
 import 'package:wordy/providers/word.dart';
 
 class Suggestions with ChangeNotifier {

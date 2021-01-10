@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:wordy/business/decoder/enum_string_converter.dart';
-import 'package:wordy/business/decoder/json_decoder_strategy.dart';
+import 'package:wordy/services/decoder/enum_string_converter.dart';
+import 'package:wordy/services/decoder/json_decoder_strategy.dart';
 import 'package:wordy/providers/word.dart';
 
 class JsonVocabularyDecoder extends JsonDecoderStrategy {

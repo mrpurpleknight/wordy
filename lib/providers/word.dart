@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
-import 'package:wordy/business/decoder/enum_string_converter.dart';
-import 'package:wordy/business/decoder/part_of_speech.dart';
-import 'package:wordy/business/http_words.dart';
+import 'package:wordy/services/decoder/enum_string_converter.dart';
+import 'package:wordy/services/decoder/part_of_speech.dart';
+import 'package:wordy/services/http_words.dart';
 
 class Word extends Equatable {
   final String _name;

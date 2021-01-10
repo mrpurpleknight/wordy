@@ -12,10 +12,7 @@ class RandomWordPageView extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         dragStartBehavior: DragStartBehavior.down,
         itemBuilder: (context, index) {
-          return Provider(
-            create: (_) => Word.random(),
-            child: RandomWordScreen(),
-          );
+          return RandomWordScreen();
         });
   }
 }

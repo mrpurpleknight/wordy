@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:wordy/business/failure_exception.dart';
-import 'package:wordy/business/wordy_client.dart';
-import 'package:wordy/business/decoder/json_suggestions_decoder.dart';
-import 'package:wordy/business/decoder/json_vocabulary_decoder.dart';
+import 'package:wordy/services/failure_exception.dart';
+import 'package:wordy/services/wordy_client.dart';
+import 'package:wordy/services/decoder/json_suggestions_decoder.dart';
+import 'package:wordy/services/decoder/json_vocabulary_decoder.dart';
 import 'package:wordy/constants.dart';
 import 'package:http/http.dart' as http;
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
-import 'package:wordy/business/failure_exception.dart';
+import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:provider/provider.dart';
