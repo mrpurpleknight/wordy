@@ -1,5 +1,5 @@
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:wordy/business/decoder/part_of_speech.dart';
+import 'package:wordy/services/decoder/part_of_speech.dart';
 
 class EnumStringConverter {
   static PartOfSpeech stringToEnum(String toConvert) {

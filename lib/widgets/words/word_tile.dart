@@ -5,14 +5,15 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/abstract/abstract_tile.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 
-class WordTile extends StatefulWidget {
+class WordTile extends AbstractTile {
   @override
   _WordTileState createState() => _WordTileState();
 }
 
-class _WordTileState extends State<WordTile> with SnackBarMixin {
+class _WordTileState extends AbstractTileState<WordTile> with SnackBarMixin {
   FailureException _lastFailure;
 
   @override
@@ -28,19 +29,7 @@ class _WordTileState extends State<WordTile> with SnackBarMixin {
       padding: const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
       height: size.height * 0.6,
       width: size.width * 0.9,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        border: Border.all(color: Colors.black38, width: 1.7),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black12.withOpacity(0.3),
-            spreadRadius: 2,
-            blurRadius: 2,
-            offset: const Offset(2, 4), // changes position of shadow
-          ),
-        ],
-      ),
+      decoration: getContainerDecoration(1.7, Offset(2, 4)),
       child: FutureBuilder<Word>(
           future: futureWord,
           builder: (context, snapshot) {
