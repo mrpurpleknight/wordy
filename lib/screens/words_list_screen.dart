@@ -49,7 +49,7 @@ class WordsListScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Words',
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Merriweather',
                             fontWeight: FontWeight.w800,
                             fontSize: 26,
@@ -71,7 +71,8 @@ class WordsListScreen extends StatelessWidget {
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
-              SliverPadding(padding: EdgeInsets.all(9), sliver: WordsList()),
+              SliverPadding(
+                  padding: const EdgeInsets.all(9), sliver: WordsList()),
             ],
           ),
         ),

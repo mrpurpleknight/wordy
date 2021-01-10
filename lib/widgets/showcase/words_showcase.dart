@@ -3,7 +3,6 @@ import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/words/word_tile_small.dart';
 
 class WordsShowcase extends StatelessWidget {
-
   final List<Word> _words;
 
   WordsShowcase(this._words);
@@ -16,7 +15,7 @@ class WordsShowcase extends StatelessWidget {
         children: [
           ..._words.map((e) {
             return Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 11),
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 11),
               child: SmallWordTile(e),
             );
           }),

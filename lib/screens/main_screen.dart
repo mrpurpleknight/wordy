@@ -35,7 +35,7 @@ class MainScreen extends StatelessWidget {
                     Padding(
                       padding:
                           const EdgeInsets.only(top: 21, left: 32, bottom: 50),
-                      child: Text(
+                      child: const Text(
                         'Wordy',
                         style: TextStyle(
                             fontSize: 44,
@@ -88,10 +88,10 @@ class MainScreen extends StatelessWidget {
                                     height: 60,
                                   ),
                                 ),
-                                Text(
+                                const Text(
                                   'Swipe up',
                                   softWrap: true,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20),

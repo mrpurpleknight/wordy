@@ -28,7 +28,7 @@ class _OverlayHintWrapperState extends State<OverlayHintWrapper> {
       if (value)
         WidgetsBinding.instance.addPostFrameCallback((_) {
           Future.delayed(
-              Duration(milliseconds: 300),
+              const Duration(milliseconds: 300),
               () => ShowCaseWidget.of(_showcaseContext)
                   .startShowCase(widget._keyList));
         });

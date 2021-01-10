@@ -14,7 +14,7 @@ class _ToolBarState extends State<ToolBar> {
   Words _words;
   Future<Word> _wordFuture;
   Color _favoriteColor;
-  FailureException lastFailure;
+  FailureException _lastFailure;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _ToolBarState extends State<ToolBar> {
     _words = Provider.of<Words>(context, listen: false);
     _wordFuture =
         Provider.of<Future<Word>>(context, listen: false).catchError((e) {
-      lastFailure = e;
+      _lastFailure = e;
     });
   }
 
@@ -59,7 +59,7 @@ class _ToolBarState extends State<ToolBar> {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting ||
                 snapshot.hasError ||
-                lastFailure != null) {
+                _lastFailure != null) {
               return LikeButton(
                 isLiked: false,
                 onTap: (bool) => Future.sync(() => bool),
@@ -82,8 +82,8 @@ class _ToolBarState extends State<ToolBar> {
                 size: 55,
                 bubblesSize: 50,
                 circleColor: CircleColor(
-                  start: Color(0xFFF64F59),
-                  end: Color(0xFFEF473A),
+                  start: const Color(0xFFF64F59),
+                  end: const Color(0xFFEF473A),
                 ),
                 bubblesColor: BubblesColor(
                   dotPrimaryColor: Colors.redAccent,

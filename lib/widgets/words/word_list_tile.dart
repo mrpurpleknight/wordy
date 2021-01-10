@@ -4,14 +4,15 @@ import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 
 class WordListTile extends StatelessWidget {
-  Word _word;
+  final Word _word;
 
   WordListTile(this._word);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).pushNamed(WordDetailScreen.routeName, arguments: _word),
+      onTap: () => Navigator.of(context)
+          .pushNamed(WordDetailScreen.routeName, arguments: _word),
       child: Container(
         alignment: Alignment.center,
         height: 70,
@@ -23,7 +24,7 @@ class WordListTile extends StatelessWidget {
               color: Colors.black12.withOpacity(0.3),
               spreadRadius: 1,
               blurRadius: 1,
-              offset: Offset(1, 3), // changes position of shadow
+              offset: const Offset(1, 3), // changes position of shadow
             ),
           ],
           color: Colors.white,
@@ -31,22 +32,8 @@ class WordListTile extends StatelessWidget {
         child: ListTile(
           title: Row(
             children: [
-              // Padding(
-              //   padding: const EdgeInsets.only(left: 6.0),
-              //   child: SizedBox(
-              //     width: 25,
-              //     height: 25,
-              //     child: Container(
-              //       decoration: BoxDecoration(
-              //         borderRadius: BorderRadius.circular(4),
-              //         border: Border.all(color: Colors.black26, width: 1),
-              //         color: _word.color,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               Padding(
-                padding: EdgeInsets.only(left: 5),
+                padding: const EdgeInsets.only(left: 5),
                 child: Text(
                   _word.name,
                   style: Theme.of(context).textTheme.headline1,

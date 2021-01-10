@@ -25,7 +25,7 @@ class OverlayHint extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Showcase.withWidget(
-      contentPadding: EdgeInsets.all(8),
+      contentPadding: const EdgeInsets.all(8),
       key: _key,
       width: _width,
       height: _height,

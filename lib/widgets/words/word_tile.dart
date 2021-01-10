@@ -13,19 +13,19 @@ class WordTile extends StatefulWidget {
 }
 
 class _WordTileState extends State<WordTile> with SnackBarMixin {
-  FailureException lastFailure;
+  FailureException _lastFailure;
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Future<Word> futureWord =
         Provider.of<Future<Word>>(context, listen: false).catchError((e) {
-      lastFailure = e;
+      _lastFailure = e;
       showSnackBar(e.toString(), context);
     });
 
     return Container(
-      padding: EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
+      padding: const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
       height: size.height * 0.6,
       width: size.width * 0.9,
       decoration: BoxDecoration(
@@ -37,7 +37,7 @@ class _WordTileState extends State<WordTile> with SnackBarMixin {
             color: Colors.black12.withOpacity(0.3),
             spreadRadius: 2,
             blurRadius: 2,
-            offset: Offset(2, 4), // changes position of shadow
+            offset: const Offset(2, 4), // changes position of shadow
           ),
         ],
       ),
@@ -46,7 +46,7 @@ class _WordTileState extends State<WordTile> with SnackBarMixin {
           builder: (context, snapshot) {
             if (snapshot.hasError ||
                 snapshot.connectionState == ConnectionState.waiting ||
-                lastFailure != null) {
+                _lastFailure != null) {
               return Center(
                   child: SpinKitWave(
                 color: Colors.black.withOpacity(0.7),
@@ -60,33 +60,33 @@ class _WordTileState extends State<WordTile> with SnackBarMixin {
                   Text(snapshot.data.name,
                       style: Theme.of(context).textTheme.headline2),
                   Padding(
-                    padding: EdgeInsets.only(top: 10, bottom: 17),
+                    padding: const EdgeInsets.only(top: 10, bottom: 17),
                     child: Text(
                       snapshot.data.partOfSpeech,
                       style: Theme.of(context).textTheme.headline3,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(top: 15, bottom: 35),
+                    padding: const EdgeInsets.only(top: 15, bottom: 35),
                     child: TyperAnimatedTextKit(
                       text: [
                         '1. ${snapshot.data.definition}',
                       ],
                       textStyle: Theme.of(context).textTheme.headline3,
                       repeatForever: false,
-                      speed: Duration(milliseconds: 35),
+                      speed: const Duration(milliseconds: 35),
                       totalRepeatCount: 1,
                     ),
                   ),
                   (snapshot.data.examplePhrase == null)
-                      ? Text('')
+                      ? const Text('')
                       : TyperAnimatedTextKit(
                           text: [
                             snapshot.data.examplePhrase,
                           ],
                           textStyle: Theme.of(context).textTheme.headline4,
                           repeatForever: false,
-                          speed: Duration(milliseconds: 40),
+                          speed: const Duration(milliseconds: 40),
                           totalRepeatCount: 1,
                         )
                 ],

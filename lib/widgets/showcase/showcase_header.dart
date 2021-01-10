@@ -6,9 +6,9 @@ class ShowcaseHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(
+        const Text(
           'Your words',
-          style: TextStyle(
+          style: const TextStyle(
               fontSize: 24, color: Colors.white, fontWeight: FontWeight.w900),
         ),
         Spacer(),
@@ -24,7 +24,7 @@ class ShowcaseHeader extends StatelessWidget {
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               child: Text('More',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18,
                       color: Colors.white,
                       fontWeight: FontWeight.w900))),

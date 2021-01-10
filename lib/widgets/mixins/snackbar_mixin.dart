@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
 mixin SnackBarMixin<T extends StatefulWidget> on State<T> {
-
   static bool isVisible = false;
 
   void showSnackBar(String text, BuildContext context) {
-    if(!isVisible) {
+    if (!isVisible) {
       isVisible = true;
       Scaffold.of(context).showSnackBar(
         SnackBar(
           key: Key(text),
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
           content: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.amberAccent,
               fontSize: 15,
             ),
