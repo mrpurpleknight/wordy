@@ -3,11 +3,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:wordy/constants.dart';
+import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/main_page_view.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/screens/words_list_screen.dart';
 
 void main() {
+  Word.randomList(3).then((value) => value.forEach((element) {print(element.name);}));
   runApp(MyApp());
 }
 
@@ -17,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Future<Widget> appFromFuture() async{
+  Future<Widget> appFromFuture() async {
     await Future.delayed(Duration(seconds: 2));
     return Wordy();
   }

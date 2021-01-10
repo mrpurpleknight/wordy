@@ -13,7 +13,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> with SnackBarMixin {
-  final LayerLink _layerLink = LayerLink();
   SearchBarStatus _searchBarStatus;
 
   void goToDetail(String name) {
@@ -43,11 +42,7 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
         children: [
           Expanded(
             child: SuggestionsOverlay(
-              child: CompositedTransformTarget(
-                link: _layerLink,
-                child: SearchInputField(goToDetail),
-              ),
-              layerLink: _layerLink,
+              child: SearchInputField(goToDetail),
             ),
           ),
           InkWell(

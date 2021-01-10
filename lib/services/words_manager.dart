@@ -17,10 +17,12 @@ class RandomWordsManager {
   }
   
   Future<void> loadWords() async {
-    await Word.randomList(CACHE_SIZE).then((value) => value.forEach((element) {
-          _wordsCache.add(element);
-          _actualSize += 1;
-        }));
+    // await Word.randomList(CACHE_SIZE).then((value) => value.forEach((element) {
+    //       _wordsCache.add(element);
+    //       _actualSize += 1;
+    //     }));
+    randomWord.then((value) => _wordsCache.add(value));
+    print(_wordsCache.length);
   }
 
   Future<Word> get randomWord async{

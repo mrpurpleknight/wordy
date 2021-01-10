@@ -1,31 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_portal/flutter_portal.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/constants.dart';
 import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/widgets/abstract/abstract__rounded_overlay.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
 
-class SuggestionsOverlay extends StatefulWidget {
-  final Widget _child;
-  final LayerLink _layerLink;
-
+class SuggestionsOverlay extends AbstractRoundedOverlay {
   SuggestionsOverlay({
     @required Widget child,
-    @required LayerLink layerLink,
-  })  : _child = child,
-        _layerLink = layerLink;
+  }) : super(target: child);
 
   @override
   _SuggestionsOverlayState createState() => _SuggestionsOverlayState();
 }
 
-class _SuggestionsOverlayState extends State<SuggestionsOverlay>
-    with SnackBarMixin {
+class _SuggestionsOverlayState
+    extends AbstractRoundedOverlayState<SuggestionsOverlay> with SnackBarMixin {
   FailureException _failure;
-
 
   Widget buildLoadingTile(double screenWidth) {
     return Container(
@@ -57,46 +52,34 @@ class _SuggestionsOverlayState extends State<SuggestionsOverlay>
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final SearchBarStatus searchBarStatus = Provider.of<SearchBarStatus>(context);
+    final SearchBarStatus searchBarStatus =
+        Provider.of<SearchBarStatus>(context);
     Future<List<Word>> suggestionsFuture =
-        Word.suggestions(searchBarStatus.textToSearch, 6).catchError((error) {
-          _failure = error;
-          showSnackBar(error.toString(), context);
-        });
-    return PortalEntry(
-      visible: searchBarStatus.isVisible,
-      portalAnchor: Alignment.topCenter,
-      childAnchor: Alignment.bottomLeft,
-      portal: CompositedTransformFollower(
-        link: widget._layerLink,
-        showWhenUnlinked: false,
-        offset: Offset(-15, 60.0 - 10),
-        child: Material(
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 4.0,
-          child: FutureBuilder<List<Word>>(
-            initialData: [Word.empty()],
-            future: suggestionsFuture,
-            builder: (context, snapshot) {
-              if (_failure != null ||
-                  snapshot.hasError ||
-                  snapshot.connectionState == ConnectionState.waiting) {
-                return buildLoadingTile(size.width);
-              } else {
-                return Container(
-                  width: size.width * 0.77,
-                  constraints: BoxConstraints(
-                    maxHeight: size.height * 0.29,
-                  ),
-                  child: SuggestionsList(snapshot.data),
-                );
-              }
-            },
-          ),
+        Word.suggestions(searchBarStatus.textToSearch, SUGGESTIONS_NUMBER)
+            .catchError((error) {
+      _failure = error;
+      showSnackBar(error.toString(), context);
+    });
+    return getPortal(
+        FutureBuilder<List<Word>>(
+          initialData: [Word.empty()],
+          future: suggestionsFuture,
+          builder: (context, snapshot) {
+            if (_failure != null ||
+                snapshot.hasError ||
+                snapshot.connectionState == ConnectionState.waiting) {
+              return buildLoadingTile(size.width);
+            } else {
+              return Container(
+                width: size.width * 0.77,
+                constraints: BoxConstraints(
+                  maxHeight: size.height * 0.29,
+                ),
+                child: SuggestionsList(snapshot.data),
+              );
+            }
+          },
         ),
-      ),
-      child: widget._child,
-    );
+        searchBarStatus.isVisible);
   }
 }

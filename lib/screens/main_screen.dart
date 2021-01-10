@@ -102,7 +102,7 @@ class MainScreen extends StatelessWidget {
                         ),
                         Container(
                             margin: EdgeInsets.only(
-                              top: size.height * 0.125,
+                              top: size.height * 0.118,
                               left: 32,
                             ),
                             child: ShowcaseHeader()),

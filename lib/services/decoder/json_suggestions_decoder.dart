@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:wordy/business/decoder/json_decoder_strategy.dart';
+import 'package:wordy/services/decoder/json_decoder_strategy.dart';
 
 class JsonSuggestionsDecoder extends JsonDecoderStrategy {
 
