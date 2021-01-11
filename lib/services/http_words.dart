@@ -49,9 +49,10 @@ class HttpWords {
 
   Future<List<Word>> getRandomWords(int number) async {
     List<Word> toReturn = [];
-    for (int i = 0; i < number; i++) {
-      randomWord.then((value) => toReturn.add(value));
-    }
+    await Future.wait([
+      for (int i = 0; i < number; i++)
+        randomWord.then((value) => toReturn.add(value))
+    ]);
 
     return toReturn;
   }
