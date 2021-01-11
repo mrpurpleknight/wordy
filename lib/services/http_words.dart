@@ -23,7 +23,8 @@ class HttpWords {
         _randomClient = WordyClient(),
         _vocabularyClient = WordyClient(),
         _vocabularyDecoder = JsonVocabularyDecoder(),
-        _suggestionsDecoder = JsonSuggestionsDecoder();
+        _suggestionsDecoder = JsonSuggestionsDecoder() {
+  }
 
   static HttpWords get instance {
     if (_instance == null) _instance = HttpWords._internal();

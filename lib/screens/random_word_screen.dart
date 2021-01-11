@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/providers/word.dart';
+import 'package:wordy/services/words_manager.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
 import 'package:wordy/widgets/words/word_tile.dart';
 import 'package:wordy/widgets/tool_bar.dart';
@@ -32,7 +33,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
           getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
         ),
         child: Provider(
-          create: (_) => Word.random(),
+          create: (_) => RandomWordsManager.instance.randomWord,
           child: SingleChildScrollView(
             child: Container(
               height: MediaQuery
