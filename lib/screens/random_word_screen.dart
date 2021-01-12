@@ -33,7 +33,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
           getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
         ),
         child: Provider(
-          create: (_) => RandomWordsManager.instance.randomWord,
+          create: (_) => RandomWordsManager.instance.getRandomWord(),
           child: SingleChildScrollView(
             child: Container(
               height: MediaQuery

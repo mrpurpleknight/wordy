@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<Widget> appFromFuture() async {
-    await RandomWordsManager.instance.loadWords();
+    RandomWordsManager.instance;
     return Wordy();
   }
 

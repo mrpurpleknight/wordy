@@ -11,7 +11,8 @@ class OverlayHintWrapper extends StatefulWidget {
   const OverlayHintWrapper({
     @required Widget child,
     @required List<GlobalKey> keyList,
-  })  : _child = child,
+  })
+      : _child = child,
         _keyList = keyList;
 
   @override
@@ -27,13 +28,12 @@ class _OverlayHintWrapperState extends State<OverlayHintWrapper> {
     displayShowcase().then((bool value) {
       if (value)
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          Future.delayed(
-              const Duration(milliseconds: 300),
-              () => ShowCaseWidget.of(_showcaseContext)
-                  .startShowCase(widget._keyList));
+          ShowCaseWidget.of(_showcaseContext)
+              .startShowCase(widget._keyList);
         });
     });
   }
+
 
   Future<bool> displayShowcase() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -53,5 +53,10 @@ class _OverlayHintWrapperState extends State<OverlayHintWrapper> {
         return widget._child;
       },
     ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
