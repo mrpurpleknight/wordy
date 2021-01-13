@@ -7,7 +7,7 @@ class RandomWordPageView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
-        controller: PageController(keepPage: true),
+        controller: PageController(keepPage: true, viewportFraction: 1.1),
         scrollDirection: Axis.horizontal,
         dragStartBehavior: DragStartBehavior.down,
         itemBuilder: (context, index) {

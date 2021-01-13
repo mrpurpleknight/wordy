@@ -17,10 +17,10 @@ class _WordsListState extends State<WordsList> {
         (BuildContext context, int index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 5),
-            child: WordListTile(words.sortByName().elementAt(index)),
+            child: WordListTile(words.getOrderedList().elementAt(index)),
           );
         },
-        childCount: words.sortByName().length,
+        childCount: words.size,
       ),
     );
   }

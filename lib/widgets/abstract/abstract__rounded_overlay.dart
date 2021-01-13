@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
 
-// ignore: must_be_immutable
 abstract class AbstractRoundedOverlay extends StatefulWidget {
   final Widget _target;
 

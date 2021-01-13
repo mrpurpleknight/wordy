@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wordy/providers/words.dart';
+import 'package:wordy/widgets/overlays/overlay_menu_wrapper.dart';
 import 'package:wordy/widgets/words/words_list.dart';
 import 'package:provider/provider.dart';
 
@@ -33,14 +34,14 @@ class WordsListScreen extends StatelessWidget {
                   forceElevated: true,
                   shadowColor: Colors.black87,
                   actions: [
-                    Padding(
+                    OverlayMenuWrapper(Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Icon(
                         Icons.filter_list_rounded,
                         color: Colors.white,
                         size: 30,
                       ),
-                    )
+                    )),
                   ],
                   pinned: true,
                   centerTitle: true,

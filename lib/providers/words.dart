@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/repository/words_repository.dart';
+import 'package:wordy/services/order/list/ordered_list.dart';
+import 'package:wordy/services/order/list/word_ordered_list.dart';
 
 import 'word.dart';
 
 class Words with ChangeNotifier {
   List<Word> _wordsList;
+  WordOrderedList _orderedList;
   final WordsRepository _repository;
 
   static Words _instance;
@@ -12,24 +15,28 @@ class Words with ChangeNotifier {
   Words._internal() : _repository = WordsRepository.instance {
     _repository.readAll().then((value) {
       _wordsList = value;
+      _orderedList = WordOrderedList(toOrder: _wordsList);
       notifyListeners();
     });
   }
 
-  List<Word> sortByName() {
-    List<Word> toOrder = _wordsList;
-    toOrder.sort((a, b) => a.name.compareTo(b.name));
-    return toOrder;
+  void sortByAlphabetical() {
+    _orderedList.alphabeticalOrder();
+    notifyListeners();
+  }
+
+  void sortByPartOfSpeech() {
+    _orderedList.partOfSpeechOrder();
+    notifyListeners();
   }
 
   static Words get instance {
-    if(_instance == null)
-      _instance = Words._internal();
+    if (_instance == null) _instance = Words._internal();
     return _instance;
   }
 
   int get size {
-    if(_wordsList == null) return 0;
+    if (_wordsList == null) return 0;
     return _wordsList.length;
   }
 
@@ -37,8 +44,12 @@ class Words with ChangeNotifier {
     return _wordsList;
   }
 
+  List<Word> getOrderedList() {
+    return _orderedList.toOrder;
+  }
+
   void addWord(Word word) {
-    if(!this.isPresent(word)) {
+    if (!this.isPresent(word)) {
       _wordsList.add(word);
       notifyListeners();
       _repository.write(word);
@@ -56,8 +67,7 @@ class Words with ChangeNotifier {
   }
 
   bool isEmpty() {
-    if(_wordsList != null)
-      return _wordsList.isEmpty;
+    if (_wordsList != null) return _wordsList.isEmpty;
 
     return false;
   }
@@ -74,8 +84,7 @@ class Words with ChangeNotifier {
     if (size > 5) {
       return _wordsList.sublist(size - 5);
     }
-    if(_wordsList == null)
-      return [];
+    if (_wordsList == null) return [];
 
     return _wordsList;
   }
