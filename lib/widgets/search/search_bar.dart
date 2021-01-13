@@ -13,7 +13,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> with SnackBarMixin {
-  SearchBarStatus _searchBarStatus;
 
   void goToDetail(String name) {
     Word.byName(name).then((value) {
@@ -27,7 +26,7 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    _searchBarStatus = Provider.of<SearchBarStatus>(context);
+     SearchBarStatus searchBarStatus = Provider.of<SearchBarStatus>(context);
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 15),
       height: 60,
@@ -46,7 +45,7 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
             ),
           ),
           InkWell(
-            onTap: () => goToDetail(_searchBarStatus.controller.text),
+            onTap: () => goToDetail(searchBarStatus.controller.text),
             child: Icon(
               Icons.search,
               size: 35,

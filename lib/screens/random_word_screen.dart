@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/providers/word.dart';
-import 'package:wordy/services/words_manager.dart';
+import 'package:wordy/providers/random_word_manager.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
 import 'package:wordy/widgets/words/word_tile.dart';
 import 'package:wordy/widgets/tool_bar.dart';
@@ -24,22 +23,17 @@ class _RandomWordScreenState extends State<RandomWordScreen>
     super.build(context);
     return Scaffold(
       body: Container(
-        height: MediaQuery
-            .of(context)
-            .size
-            .height,
+        height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient:
-          getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
+              getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
         ),
         child: Provider(
-          create: (_) => RandomWordsManager.instance.getRandomWord(),
+          create: (_) => RandomWordManager.instance.getRandomWord(),
+          lazy: false,
           child: SingleChildScrollView(
             child: Container(
-              height: MediaQuery
-                  .of(context)
-                  .size
-                  .height,
+              height: MediaQuery.of(context).size.height,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,

@@ -6,7 +6,7 @@ import 'package:wordy/constants.dart';
 import 'package:wordy/screens/main_page_view.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/screens/words_list_screen.dart';
-import 'package:wordy/services/words_manager.dart';
+import 'package:wordy/providers/random_word_manager.dart';
 
 void main() {
   runApp(MyApp());
@@ -19,7 +19,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<Widget> appFromFuture() async {
-    RandomWordsManager.instance;
+    RandomWordManager.instance;
+    Future.delayed(Duration(seconds: 2));
     return Wordy();
   }
 

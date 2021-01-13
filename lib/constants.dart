@@ -13,6 +13,4 @@ const String x_rapid_key = '027991e8c4msh74c4ade18c566dbp108871jsn5a0125b5c1fb';
 const String x_rapid_host = 'wordsapiv1.p.rapidapi.com';
 
 const String suggestionWordUrl = 'https://api.datamuse.com/words?'; //sp=lis?*&max=5
-
-const int CACHE_SIZE = 4;
 const int SUGGESTIONS_NUMBER = 6;
