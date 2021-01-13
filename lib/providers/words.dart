@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/repository/words_repository.dart';
-import 'package:wordy/services/order/list/ordered_list.dart';
 import 'package:wordy/services/order/list/word_ordered_list.dart';
 
 import 'word.dart';
