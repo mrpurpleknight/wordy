@@ -27,7 +27,7 @@ class _WordTileState extends AbstractTileState<WordTile> with SnackBarMixin {
 
     return Container(
       padding: const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
-      height: size.height * 0.6,
+      height: size.height * 0.63,
       width: size.width * 0.9,
       decoration: getContainerDecoration(1.7, Offset(2, 4)),
       child: FutureBuilder<Word>(

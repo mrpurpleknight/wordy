@@ -7,6 +7,8 @@ import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/abstract/abstract__rounded_overlay.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
+import 'package:wordy/widgets/search/entries/loading_entry.dart';
+import 'package:wordy/widgets/search/entries/no_result_entry.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
 
 class SuggestionsOverlay extends AbstractRoundedOverlay {
@@ -21,33 +23,6 @@ class SuggestionsOverlay extends AbstractRoundedOverlay {
 class _SuggestionsOverlayState
     extends AbstractRoundedOverlayState<SuggestionsOverlay> with SnackBarMixin {
   FailureException _failure;
-
-  Widget buildLoadingTile(double screenWidth) {
-    return Container(
-      width: screenWidth * 0.77,
-      child: ListTile(
-        title: SizedBox(
-          width: 50,
-          height: 10,
-          child: Padding(
-            padding: EdgeInsets.only(right: screenWidth * 0.45),
-            child: SpinKitThreeBounce(
-              size: 13,
-              color: Theme.of(context).backgroundColor,
-            ),
-          ),
-        ),
-        trailing: Padding(
-          padding: const EdgeInsets.only(right: 5.0),
-          child: Icon(
-            Icons.search,
-            color: Theme.of(context).backgroundColor,
-            size: 30,
-          ),
-        ),
-      ),
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +43,16 @@ class _SuggestionsOverlayState
             if (_failure != null ||
                 snapshot.hasError ||
                 snapshot.connectionState == ConnectionState.waiting) {
-              return buildLoadingTile(size.width);
+              return LoadingEntry();
             } else {
               return Container(
                 width: size.width * 0.77,
                 constraints: BoxConstraints(
                   maxHeight: size.height * 0.29,
                 ),
-                child: SuggestionsList(snapshot.data),
+                child: (snapshot.data.length == 0)
+                    ? NoResultEntry()
+                    : SuggestionsList(snapshot.data),
               );
             }
           },

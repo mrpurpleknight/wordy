@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/providers/word.dart';
-import 'package:wordy/widgets/search/suggestion_tile.dart';
+import 'package:wordy/widgets/search/entries/suggestion_entry.dart';
 
 class SuggestionsList extends StatelessWidget {
   final List<Word> words;

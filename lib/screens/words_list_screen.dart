@@ -67,7 +67,7 @@ class WordsListScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  backgroundColor: Theme.of(context).accentColor,
+                  backgroundColor: Colors.black26,
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
