@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:wordy/widgets/overlays/overlay_position.dart';
 
 abstract class AbstractRoundedOverlay extends StatefulWidget {
   final Widget _target;
+  final OverlayPosition _position;
 
-  AbstractRoundedOverlay({Key key, @required Widget target})
+  AbstractRoundedOverlay(
+      {Key key, @required Widget target, @required OverlayPosition position})
       : _target = target,
+        _position = position,
         super(key: key);
 }
 
@@ -23,8 +27,8 @@ abstract class AbstractRoundedOverlayState<T extends AbstractRoundedOverlay>
   Widget getPortal(Widget follower, bool isVisible) {
     return PortalEntry(
       visible: isVisible,
-      portalAnchor: Alignment.topCenter,
-      childAnchor: Alignment.bottomCenter,
+      portalAnchor: widget._position.portalAnchor,
+      childAnchor: widget._position.childAnchor,
       portal: getFollower(follower),
       child: getTarget(),
     );
@@ -34,7 +38,7 @@ abstract class AbstractRoundedOverlayState<T extends AbstractRoundedOverlay>
     return CompositedTransformFollower(
       link: _layerLink,
       showWhenUnlinked: false,
-      offset: Offset(-15, 60.0 - 10),
+      offset: widget._position.offset,
       child: Material(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 4.0,

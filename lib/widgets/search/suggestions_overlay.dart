@@ -6,6 +6,7 @@ import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/abstract/abstract__rounded_overlay.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
+import 'package:wordy/widgets/overlays/overlay_position.dart';
 import 'package:wordy/widgets/search/entries/loading_entry.dart';
 import 'package:wordy/widgets/search/entries/no_result_entry.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
@@ -13,7 +14,8 @@ import 'package:wordy/widgets/search/suggestions_list.dart';
 class SuggestionsOverlay extends AbstractRoundedOverlay {
   SuggestionsOverlay({
     @required Widget child,
-  }) : super(target: child);
+    @required OverlayPosition overlayPosition
+  }) : super(target: child, position: overlayPosition);
 
   @override
   _SuggestionsOverlayState createState() => _SuggestionsOverlayState();

@@ -20,8 +20,8 @@ class OverlayMenuWrapper extends StatelessWidget {
       duration: Duration(milliseconds: 100),
       animateMenuItems: true,
       openWithTap: true,
-      menuOffset: 10.0,
-      bottomOffsetHeight: 80.0,
+      menuOffset: 5.0,
+      bottomOffsetHeight: 20.0,
       // Offset height to consider, for showing the menu item ( for example bottom navigation bar), so that the popup menu will be shown on top of selected item.
       menuItems: <FocusedMenuItem>[
         // Add Each FocusedMenuItem  for Menu Options
@@ -31,10 +31,10 @@ class OverlayMenuWrapper extends StatelessWidget {
             style: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.bold,
-                fontSize: 15.0,
+                fontSize: 17.0,
                 color: Colors.black87),
           ),
-          trailingIcon: Icon(Icons.title, color: Colors.black45),
+          trailingIcon: Icon(Icons.title, color: Colors.black.withOpacity(0.6)),
           onPressed: () => Provider.of<Words>(context, listen: false).sortByAlphabetical(),
         ),
         FocusedMenuItem(
@@ -43,12 +43,12 @@ class OverlayMenuWrapper extends StatelessWidget {
             style: TextStyle(
                 fontFamily: 'Merriweather',
                 fontWeight: FontWeight.bold,
-                fontSize: 15.0,
+                fontSize: 17.0,
                 color: Colors.black87),
           ),
           trailingIcon: Icon(
             Icons.article,
-            color: Colors.black45,
+            color: Colors.black.withOpacity(0.6),
           ),
           onPressed: () => Provider.of<Words>(context, listen: false).sortByPartOfSpeech(),
         ),

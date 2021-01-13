@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:showcaseview/showcase.dart';
 
 // ignore: must_be_immutable
-class OverlayHint extends StatelessWidget {
+class TooltipElement extends StatelessWidget {
   final GlobalKey _key;
   final Widget _overlayTile;
   Widget _target;
   double _width;
   double _height;
 
-  OverlayHint({
+  TooltipElement({
     @required GlobalKey key,
     @required Widget overlayTile,
     Widget target,

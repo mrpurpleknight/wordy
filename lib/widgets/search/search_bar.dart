@@ -4,6 +4,7 @@ import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
+import 'package:wordy/widgets/overlays/overlay_position.dart';
 import 'package:wordy/widgets/search/search_input_field.dart';
 import 'package:wordy/widgets/search/suggestions_overlay.dart';
 
@@ -13,7 +14,6 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> with SnackBarMixin {
-
   void goToDetail(String name) {
     Word.byName(name).then((value) {
       if (value != null) {
@@ -26,7 +26,7 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-     SearchBarStatus searchBarStatus = Provider.of<SearchBarStatus>(context);
+    SearchBarStatus searchBarStatus = Provider.of<SearchBarStatus>(context);
     return Container(
       margin: EdgeInsets.only(left: 30, right: 30, top: 15),
       height: 60,
@@ -41,6 +41,11 @@ class _SearchBarState extends State<SearchBar> with SnackBarMixin {
         children: [
           Expanded(
             child: SuggestionsOverlay(
+              overlayPosition: OverlayPosition(
+                childAnchor: Alignment.topCenter,
+                portalAnchor: Alignment.bottomCenter,
+                offset: Offset(-15, 50),
+              ),
               child: SearchInputField(goToDetail),
             ),
           ),

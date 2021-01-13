@@ -4,12 +4,12 @@ import 'package:showcaseview/showcase_widget.dart';
 
 /// This class is a wrapper for any screen which wants to display some overlay.
 /// The child is the screen attached to this wrapper and should include one or more overlays with the relative keyList set.
-class OverlayHintWrapper extends StatelessWidget {
+class TooltipWrapper extends StatelessWidget {
   final Widget _child;
   final List<GlobalKey> _keyList;
   BuildContext _showcaseContext;
 
-  OverlayHintWrapper({
+  TooltipWrapper({
     @required Widget child,
     @required List<GlobalKey> keyList,
   })  : _child = child,

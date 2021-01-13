@@ -4,8 +4,8 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_focus_watcher/flutter_focus_watcher.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wordy/providers/search_bar_status.dart';
-import 'package:wordy/widgets/overlays/overlay_hint.dart';
-import 'package:wordy/widgets/overlays/overlay_hint_wrapper.dart';
+import 'package:wordy/widgets/tooltips/tooltip_element.dart';
+import 'package:wordy/widgets/tooltips/tooltip_wrapper.dart';
 import 'package:wordy/widgets/search/search_bar.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:wordy/widgets/showcase/showcase_header.dart';
@@ -19,7 +19,7 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final Words words = Provider.of<Words>(context);
-    return OverlayHintWrapper(
+    return TooltipWrapper(
       keyList: [_one],
       child: FocusWatcher(
         child: Scaffold(
@@ -67,7 +67,7 @@ class MainScreen extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        OverlayHint(
+                        TooltipElement(
                           key: _one,
                           // shapeBorder: CircleBorder(),
                           overlayTile: Container(
