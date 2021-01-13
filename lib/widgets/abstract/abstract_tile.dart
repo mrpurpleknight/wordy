@@ -10,7 +10,7 @@ abstract class AbstractTileState<T extends StatefulWidget> extends State<T> {
     return BoxDecoration(
       borderRadius: BorderRadius.circular(10),
       color: Colors.white,
-      border: Border.all(color: Colors.black38, width: borderWidth),
+      border: Border.all(color: Colors.black.withOpacity(0.63), width: borderWidth),
       boxShadow: [
         BoxShadow(
           color: Colors.black12.withOpacity(0.3),

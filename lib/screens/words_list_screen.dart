@@ -37,7 +37,7 @@ class WordsListScreen extends StatelessWidget {
                     OverlayMenuWrapper(Padding(
                       padding: const EdgeInsets.only(right: 15),
                       child: Icon(
-                        Icons.filter_list_rounded,
+                        Icons.sort_rounded,
                         color: Colors.white,
                         size: 30,
                       ),
