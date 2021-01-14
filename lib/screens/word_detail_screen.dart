@@ -35,21 +35,26 @@ class _WordDetailScreenState extends State<WordDetailScreen>
             ChangeNotifierProvider.value(value: Words.instance),
             Provider.value(value: Future.sync(() => word)),
           ],
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 40, right: 40, bottom: 25, top: 20),
-                child: WordTile(),
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 40, right: 40, bottom: 25, top: 20),
+                    child: WordTile(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 50),
+                    child: ToolBar(),
+                  ),
+                ],
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 50),
-                child: ToolBar(),
-              ),
-            ],
+            ),
           ),
         ),
       ),

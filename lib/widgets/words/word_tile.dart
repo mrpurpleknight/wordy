@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
-import 'package:wordy/providers/connectivity_status.dart';
-import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/abstract/abstract_tile.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
@@ -15,40 +13,12 @@ class WordTile extends AbstractTile {
 }
 
 class _WordTileState extends AbstractTileState<WordTile> with SnackBarMixin {
-  FailureException _lastFailure;
   Future<Word> futureWord;
-
-  @override
-  void initState() {
-    super.initState();
-
-    // ConnectivityStatus connectivityStatus =
-    //     Provider.of<ConnectivityStatus>(context, listen: false);
-    // connectivityStatus.connection.listen((event) {
-    //   if (connectivityStatus.mapEvent(event) == ConnectionStatus.on)
-    //       _lastFailure = null;
-    //       futureWord =
-    //           Provider.of<Future<Word>>(context, listen: false).catchError(
-    //                 (e) {
-    //               _lastFailure = e;
-    //               showSnackBar(e.toString(), context);
-    //             },
-    //           );
-    //     });
-
-  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    futureWord =
-        Provider.of<Future<Word>>(context, listen: false).catchError(
-      (e) {
-        _lastFailure = e;
-        showSnackBar(e.toString(), context);
-      },
-    );
-
+    futureWord = Provider.of<Future<Word>>(context, listen: false);
     return Container(
       padding: const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25),
       height: size.height * 0.63,
@@ -58,8 +28,7 @@ class _WordTileState extends AbstractTileState<WordTile> with SnackBarMixin {
           future: futureWord,
           builder: (context, snapshot) {
             if (snapshot.hasError ||
-                snapshot.connectionState == ConnectionState.waiting ||
-                _lastFailure != null) {
+                snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: SpinKitWave(
                   color: Colors.black.withOpacity(0.7),
@@ -68,7 +37,6 @@ class _WordTileState extends AbstractTileState<WordTile> with SnackBarMixin {
                 ),
               );
             } else {
-              _lastFailure = null;
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

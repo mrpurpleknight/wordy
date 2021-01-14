@@ -12,7 +12,6 @@ class ToolBar extends StatefulWidget {
 
 class _ToolBarState extends State<ToolBar> {
   Words _words;
-  Future<Word> _wordFuture;
   Color _favoriteColor;
   FailureException _lastFailure;
 
@@ -20,10 +19,6 @@ class _ToolBarState extends State<ToolBar> {
   void initState() {
     super.initState();
     _words = Provider.of<Words>(context, listen: false);
-    _wordFuture =
-        Provider.of<Future<Word>>(context, listen: false).catchError((e) {
-      _lastFailure = e;
-    });
   }
 
   void setColor(Word word) {
@@ -52,10 +47,11 @@ class _ToolBarState extends State<ToolBar> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    Future<Word> wordFuture = Provider.of<Future<Word>>(context, listen: false);
     return Container(
       margin: EdgeInsets.only(left: size.width * 0.6, top: 10),
       child: FutureBuilder<Word>(
-          future: _wordFuture,
+          future: wordFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting ||
                 snapshot.hasError ||

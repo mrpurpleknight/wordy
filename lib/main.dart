@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_portal/flutter_portal.dart';
+import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:wordy/constants.dart';
+import 'package:wordy/providers/connectivity_service.dart';
 import 'package:wordy/screens/main_page_view.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/screens/words_list_screen.dart';
@@ -105,7 +107,10 @@ class Wordy extends StatelessWidget {
                     color: Colors.black),
               ),
         ),
-        home: MainPageView(),
+        home: StreamProvider<ConnectivityStatus>(
+            create: (context) =>
+                ConnectivityService().connectionStatusController.stream,
+            child: MainPageView()),
         routes: {
           WordsListScreen.routeName: (ctx) => WordsListScreen(),
           WordDetailScreen.routeName: (ctx) => WordDetailScreen(),
