@@ -1,7 +1,7 @@
 import 'package:http/http.dart' as http;
 
 class WordyClient {
-  final http.Client _client;
+  http.Client _client;
 
   WordyClient() : _client = http.Client();
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-mixin SnackBarMixin<T extends StatefulWidget> on State<T> {
+mixin SnackBarMixin<T> {
   static bool isVisible = false;
 
   void showSnackBar(String text, BuildContext context) {

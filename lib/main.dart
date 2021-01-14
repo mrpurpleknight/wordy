@@ -21,7 +21,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Future<Widget> appFromFuture() async {
-    RandomWordManager.instance;
     await Future.delayed(Duration(milliseconds: 2000));
     return Wordy();
   }
@@ -107,9 +106,9 @@ class Wordy extends StatelessWidget {
                     color: Colors.black),
               ),
         ),
-        home: StreamProvider<ConnectivityStatus>(
+        home: ChangeNotifierProvider<ConnectivityService>(
             create: (context) =>
-                ConnectivityService().connectionStatusController.stream,
+                ConnectivityService(),
             child: MainPageView()),
         routes: {
           WordsListScreen.routeName: (ctx) => WordsListScreen(),

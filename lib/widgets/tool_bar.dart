@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
-import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +12,6 @@ class ToolBar extends StatefulWidget {
 class _ToolBarState extends State<ToolBar> {
   Words _words;
   Color _favoriteColor;
-  FailureException _lastFailure;
 
   @override
   void initState() {
@@ -54,8 +52,7 @@ class _ToolBarState extends State<ToolBar> {
           future: wordFuture,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting ||
-                snapshot.hasError ||
-                _lastFailure != null) {
+                snapshot.hasError) {
               return LikeButton(
                 isLiked: false,
                 onTap: (bool) => Future.sync(() => bool),
@@ -69,7 +66,6 @@ class _ToolBarState extends State<ToolBar> {
                 },
               );
             } else {
-              _lastFailure = null;
               setColor(snapshot.data);
               return LikeButton(
                 isLiked: _words.isPresent(snapshot.data),

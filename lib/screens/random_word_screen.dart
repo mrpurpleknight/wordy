@@ -32,8 +32,7 @@ class _RandomWordScreenState extends State<RandomWordScreen>
         child: MultiProvider(
           providers: [
             Provider(
-              create: (_) =>RandomWordManager.instance.getRandomWord(),
-              lazy: false,
+              create: (_) => RandomWordManager.instance.getRandomWord(),
             ),
           ],
           child: SingleChildScrollView(

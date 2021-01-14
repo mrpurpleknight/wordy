@@ -1,14 +1,19 @@
-import 'dart:async';
 import 'package:connectivity/connectivity.dart';
+import 'package:flutter/cupertino.dart';
 
-class ConnectivityService {
-  StreamController<ConnectivityStatus> connectionStatusController =
-      StreamController<ConnectivityStatus>();
+class ConnectivityService with ChangeNotifier{
+
+  ConnectivityStatus _actual;
 
   ConnectivityService() {
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      connectionStatusController.add(_getStatusFromResult(result));
+      _actual = _getStatusFromResult(result);
+      notifyListeners();
     });
+  }
+
+  ConnectivityStatus get actualState {
+    return _actual;
   }
 
   ConnectivityStatus _getStatusFromResult(ConnectivityResult result) {
@@ -16,10 +21,13 @@ class ConnectivityService {
       case ConnectivityResult.mobile:
       case ConnectivityResult.wifi:
         return ConnectivityStatus.on;
+        break;
       case ConnectivityResult.none:
         return ConnectivityStatus.off;
+        break;
       default:
         return ConnectivityStatus.off;
+        break;
     }
   }
 }
