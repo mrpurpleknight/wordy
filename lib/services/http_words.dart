@@ -18,18 +18,22 @@ class HttpWords {
   final WordyClient _vocabularyClient;
   final JsonVocabularyDecoder _vocabularyDecoder;
   final JsonSuggestionsDecoder _suggestionsDecoder;
+  final StreamController<Word> _controller;
 
   HttpWords._internal()
       : _suggestionsClient = WordyClient(),
         _randomClient = WordyClient(),
         _vocabularyClient = WordyClient(),
         _vocabularyDecoder = JsonVocabularyDecoder(),
-        _suggestionsDecoder = JsonSuggestionsDecoder();
+        _suggestionsDecoder = JsonSuggestionsDecoder(),
+        _controller = StreamController<Word>.broadcast();
 
   static HttpWords get instance {
     if (_instance == null) _instance = HttpWords._internal();
     return _instance;
   }
+
+  Stream<Word> get randomStream => _controller.stream;
 
   Future<Word> get randomWord async {
     Word toReturn;
@@ -51,9 +55,9 @@ class HttpWords {
     while (true) {
       try {
         Word toReturn = await randomWord;
-        yield toReturn;
+        _controller.sink.add(toReturn);
       } on IOException {
-        throw FailureException('No Internet connection');
+        _controller.add(Word.empty());
       }
     }
   }

@@ -53,7 +53,7 @@ class WordsListScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontFamily: 'Merriweather',
                             fontWeight: FontWeight.w800,
-                            fontSize: 26,
+                            fontSize: 29,
                             color: Colors.white),
                       ),
                       Padding(
@@ -67,13 +67,13 @@ class WordsListScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  backgroundColor: Colors.black26,
+                  backgroundColor: Colors.black.withOpacity(0.28),
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
               SliverPadding(
-                  padding: const EdgeInsets.all(9), sliver: WordsList()),
+                  padding: const EdgeInsets.only(top: 15, right: 9, bottom: 9, left: 9), sliver: WordsList()),
             ],
           ),
         ),

@@ -12,10 +12,9 @@ import 'package:wordy/widgets/search/entries/no_result_entry.dart';
 import 'package:wordy/widgets/search/suggestions_list.dart';
 
 class SuggestionsOverlay extends AbstractRoundedOverlay {
-  SuggestionsOverlay({
-    @required Widget child,
-    @required OverlayPosition overlayPosition
-  }) : super(target: child, position: overlayPosition);
+  SuggestionsOverlay(
+      {@required Widget child, @required OverlayPosition overlayPosition})
+      : super(target: child, position: overlayPosition);
 
   @override
   _SuggestionsOverlayState createState() => _SuggestionsOverlayState();
@@ -24,6 +23,15 @@ class SuggestionsOverlay extends AbstractRoundedOverlay {
 class _SuggestionsOverlayState
     extends AbstractRoundedOverlayState<SuggestionsOverlay> with SnackBarMixin {
   FailureException _failure;
+
+  Widget getContent(Widget child, double width, double height) {
+    return Container(
+        width: width,
+        constraints: BoxConstraints(
+          maxHeight: height,
+        ),
+        child: child);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,17 +52,15 @@ class _SuggestionsOverlayState
             if (_failure != null ||
                 snapshot.hasError ||
                 snapshot.connectionState == ConnectionState.waiting) {
-              return LoadingEntry();
+              return getContent(
+                  LoadingEntry(), size.width * 0.77, size.height * 0.29);
             } else {
-              return Container(
-                width: size.width * 0.77,
-                constraints: BoxConstraints(
-                  maxHeight: size.height * 0.29,
-                ),
-                child: (snapshot.data.length == 0)
-                    ? NoResultEntry()
-                    : SuggestionsList(snapshot.data),
-              );
+              return getContent(
+                  (snapshot.data.length == 0)
+                      ? NoResultEntry()
+                      : SuggestionsList(snapshot.data),
+                  size.width * 0.77,
+                  size.height * 0.29);
             }
           },
         ),

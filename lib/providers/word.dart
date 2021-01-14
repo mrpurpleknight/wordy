@@ -62,7 +62,7 @@ class Word extends Equatable {
   }
 
   static Stream<Word> randomList() async* {
-    yield* HttpWords.instance.getRandomWords();
+    yield* HttpWords.instance.randomStream;
   }
 
   static Future<Word> byName(String name) async {

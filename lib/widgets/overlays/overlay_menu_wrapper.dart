@@ -28,12 +28,16 @@ class OverlayMenuWrapper extends StatelessWidget {
           title: Text(
             "A-Z",
             style: TextStyle(
-                fontFamily: 'Lato',
-                fontWeight: FontWeight.bold,
-                fontSize: 17.0,
-                color: Colors.black87),
+              fontFamily: 'Merriweather',
+              fontWeight: FontWeight.bold,
+              fontSize: 18.5,
+              color: Colors.black.withOpacity(0.7),
+            ),
           ),
-          trailingIcon: Icon(Icons.title, color: Colors.black.withOpacity(0.6)),
+          trailingIcon: Icon(
+            Icons.title,
+            color: Colors.black.withOpacity(0.7),
+          ),
           onPressed: () =>
               Provider.of<Words>(context, listen: false).sortByAlphabetical(),
         ),
@@ -42,14 +46,15 @@ class OverlayMenuWrapper extends StatelessWidget {
           title: Text(
             "Type",
             style: TextStyle(
-                fontFamily: 'Lato',
-                fontWeight: FontWeight.bold,
-                fontSize: 17.0,
-                color: Colors.black87),
+              fontFamily: 'Merriweather',
+              fontWeight: FontWeight.bold,
+              fontSize: 18.5,
+              color: Colors.black.withOpacity(0.7),
+            ),
           ),
           trailingIcon: Icon(
             Icons.article,
-            color: Colors.black.withOpacity(0.6),
+            color: Colors.black.withOpacity(0.7),
           ),
           onPressed: () =>
               Provider.of<Words>(context, listen: false).sortByPartOfSpeech(),

@@ -22,7 +22,7 @@ class _SmallWordTileState extends AbstractTileState<SmallWordTile> {
       child: Container(
         padding:
             const EdgeInsets.only(top: 30, right: 19, left: 19, bottom: 23),
-        height: size.height * 0.359,
+        height: size.height * 0.36,
         width: size.width * 0.51,
         decoration: getContainerDecoration(1.5, Offset(1, 3)),
         child: Column(
