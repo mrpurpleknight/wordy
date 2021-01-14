@@ -73,6 +73,7 @@ class _ToolBarState extends State<ToolBar> {
                 },
               );
             } else {
+              _lastFailure = null;
               setColor(snapshot.data);
               return LikeButton(
                 isLiked: _words.isPresent(snapshot.data),

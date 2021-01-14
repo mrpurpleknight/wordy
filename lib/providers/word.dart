@@ -26,9 +26,13 @@ class Word extends Equatable {
         this._examplePhrase = examplePhrase;
 
   String get name => _name;
+
   String get partOfSpeech => EnumStringConverter.enumToString(_partOfSpeech);
+
   PartOfSpeech get partOfSpeechEnum => _partOfSpeech;
+
   String get definition => _definition;
+
   String get examplePhrase => _examplePhrase;
 
   String get partOfSpeechAbbreviation {
@@ -62,7 +66,7 @@ class Word extends Equatable {
   }
 
   static Stream<Word> randomList() async* {
-    yield* HttpWords.instance.randomStream;
+    yield* HttpWords.instance.getRandomWords();
   }
 
   static Future<Word> byName(String name) async {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:wordy/providers/connectivity_status.dart';
 import 'package:wordy/providers/random_word_manager.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
 import 'package:wordy/widgets/words/word_tile.dart';
@@ -28,9 +29,16 @@ class _RandomWordScreenState extends State<RandomWordScreen>
           gradient:
               getLinearGradient([gradientBegin, gradientMed, gradientEnd]),
         ),
-        child: Provider(
-          create: (_) => RandomWordManager.instance.getRandomWord(),
-          lazy: false,
+        child: MultiProvider(
+          providers: [
+            Provider(
+              create: (_) =>RandomWordManager.instance.getRandomWord(),
+              lazy: false,
+            ),
+            Provider(
+              create: (_) => ConnectivityStatus(),
+            ),
+          ],
           child: SingleChildScrollView(
             child: Container(
               height: MediaQuery.of(context).size.height,

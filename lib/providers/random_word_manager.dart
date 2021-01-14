@@ -2,6 +2,8 @@ import 'package:async/async.dart';
 import 'package:wordy/providers/word.dart';
 import 'dart:async';
 
+import 'package:wordy/services/failure_exception.dart';
+
 class RandomWordManager {
   static RandomWordManager _instance;
   final StreamQueue<Word> _queue;
@@ -14,9 +16,10 @@ class RandomWordManager {
   }
 
   Future<Word> getRandomWord() async {
-    bool hasNext = await _queue.hasNext;
-    while (!hasNext) hasNext = await _queue.hasNext;
-
-    return _queue.next;
+    try {
+      return _queue.next;
+    } catch (e) {
+      throw FailureException('No Internet connection');
+    }
   }
 }
