@@ -30,6 +30,7 @@ class WordsListScreen extends StatelessWidget {
           child: CustomScrollView(
             slivers: <Widget>[
               SliverAppBar(
+                toolbarHeight: 65,
                   elevation: 8,
                   forceElevated: true,
                   shadowColor: Colors.black87,
@@ -43,7 +44,7 @@ class WordsListScreen extends StatelessWidget {
                       ),
                     )),
                   ],
-                  pinned: true,
+                  pinned: false,
                   centerTitle: true,
                   title: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -67,13 +68,15 @@ class WordsListScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  backgroundColor: Colors.black.withOpacity(0.28),
+                  backgroundColor: Colors.black26,
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
               SliverPadding(
-                  padding: const EdgeInsets.only(top: 15, right: 9, bottom: 9, left: 9), sliver: WordsList()),
+                  padding: const EdgeInsets.only(
+                      top: 12, right: 9, bottom: 9, left: 9),
+                  sliver: WordsList()),
             ],
           ),
         ),
