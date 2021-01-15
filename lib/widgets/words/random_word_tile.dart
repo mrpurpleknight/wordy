@@ -1,14 +1,11 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/providers/connectivity_service.dart';
 import 'package:wordy/providers/word.dart';
-import 'package:wordy/widgets/abstract/abstract_tile.dart';
 import 'package:wordy/widgets/abstract/abstract_word_tile.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
-import 'package:wordy/widgets/words/detail_word_tile.dart';
 
 class RandomWordTile extends AbstractWordTile {
   @override
@@ -62,7 +59,11 @@ class _WordTileState extends AbstractWordTileState<RandomWordTile>
       );
     } else {
       if (_oldFuture == null)
-        return loadingState();
+        return getContainer(
+            child: loadingState(),
+            padding: padding,
+            height: height,
+            width: width);
       else
         return getContainer(
             child: FutureBuilder<Word>(

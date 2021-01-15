@@ -41,7 +41,7 @@ class HttpWords {
         //the API does return only the string corresponding to the word name
         getWordFromName(json[0]).then((value) => toReturn = value);
       }
-    } on IOException {
+    } on Exception {
       throw FailureException('No Internet connection');
     }
     return toReturn;
@@ -71,7 +71,7 @@ class HttpWords {
             toReturn.add(toInsert);
         }
       }
-    } on IOException {
+    } on Exception {
       throw FailureException('No Internet connection');
     }
 

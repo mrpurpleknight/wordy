@@ -21,7 +21,6 @@ class RandomWordManager {
       _queue = StreamQueue(_queue.rest);
       return toReturn;
     } catch (e) {
-      _queue.cancel();
       _queue = StreamQueue(Word.randomList());
       throw FailureException('No Internet connection');
     }
