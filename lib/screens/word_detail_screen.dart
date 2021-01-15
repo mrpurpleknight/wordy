@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
+import 'package:wordy/widgets/detail_toolbar.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
-import 'package:wordy/widgets/tool_bar.dart';
+import 'package:wordy/widgets/random_toolbar.dart';
 import 'package:wordy/widgets/words/detail_word_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,7 @@ class _WordDetailScreenState extends State<WordDetailScreen>
                   ),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 50),
-                    child: ToolBar(),
+                    child: DetailToolbar(word),
                   ),
                 ],
               ),

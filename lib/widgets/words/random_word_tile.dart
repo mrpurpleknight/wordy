@@ -3,6 +3,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/providers/connectivity_service.dart';
+import 'package:wordy/providers/random_word_manager.dart';
 import 'package:wordy/providers/word.dart';
 import 'package:wordy/widgets/abstract/abstract_word_tile.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
@@ -35,12 +36,11 @@ class _WordTileState extends AbstractWordTileState<RandomWordTile>
     double width = size.height * 0.9;
     EdgeInsets padding =
         const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25);
-
+    if (_newFuture == null) {
+      _newFuture = Provider.of<Future<Word>>(context);
+      _oldFuture = _newFuture;
+    }
     if (service.actualState == ConnectivityStatus.on) {
-      if (_newFuture == null) {
-        _newFuture = Provider.of<Future<Word>>(context);
-        _oldFuture = _newFuture;
-      }
       return getContainer(
         height: height,
         width: width,
