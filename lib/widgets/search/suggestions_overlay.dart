@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/constants.dart';
 import 'package:wordy/providers/connectivity_service.dart';
+import 'package:wordy/providers/word_manager.dart';
 import 'package:wordy/services/failure_exception.dart';
 import 'package:wordy/providers/search_bar_status.dart';
 import 'package:wordy/providers/word.dart';
@@ -40,12 +41,14 @@ class _SuggestionsOverlayState
     final SearchBarStatus searchBarStatus =
         Provider.of<SearchBarStatus>(context);
     ConnectivityService service = Provider.of<ConnectivityService>(context);
+
     if (service.actualState == ConnectivityStatus.on) {
       _failure = null;
-      Future<List<Word>> suggestionsFuture =
-          Word.suggestions(searchBarStatus.textToSearch, SUGGESTIONS_NUMBER)
-              .catchError((error) {
-                showSnackBar(error.toString(), context);
+      Future<List<Word>> suggestionsFuture = WordManager.instance
+          .getSuggestionsFromName(
+              searchBarStatus.textToSearch, SUGGESTIONS_NUMBER)
+          .catchError((error) {
+        showSnackBar(error.toString(), context);
         _failure = error;
       });
       return getPortal(
@@ -55,25 +58,25 @@ class _SuggestionsOverlayState
             builder: (context, snapshot) {
               if (_failure != null ||
                   snapshot.hasError ||
-                  snapshot.connectionState == ConnectionState.waiting) {
+                  snapshot.connectionState == ConnectionState.waiting)
                 return getContent(
                     LoadingEntry(), size.width * 0.77, size.height * 0.29);
-              } else {
+              else
                 return getContent(
                     (snapshot.data.length == 0)
                         ? NoResultEntry()
                         : SuggestionsList(snapshot.data),
                     size.width * 0.77,
                     size.height * 0.29);
-              }
             },
           ),
           searchBarStatus.isVisible);
     } else {
       _failure = FailureException('No Internet connection');
       return getPortal(
-          getContent(LoadingEntry(), size.width * 0.77, size.height * 0.29),
-          searchBarStatus.isVisible);
+        getContent(LoadingEntry(), size.width * 0.77, size.height * 0.29),
+        searchBarStatus.isVisible,
+      );
     }
   }
 }

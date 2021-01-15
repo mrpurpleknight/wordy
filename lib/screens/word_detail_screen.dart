@@ -3,7 +3,6 @@ import 'package:wordy/providers/word.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:wordy/widgets/toolbar/detail_toolbar.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
-import 'package:wordy/widgets/toolbar/random_toolbar.dart';
 import 'package:wordy/widgets/words/detail_word_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +22,7 @@ class _WordDetailScreenState extends State<WordDetailScreen>
     final word = ModalRoute.of(context).settings.arguments as Word;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         backgroundColor: Theme.of(context).backgroundColor,
         elevation: 0,
       ),
@@ -47,8 +47,7 @@ class _WordDetailScreenState extends State<WordDetailScreen>
                   padding: EdgeInsets.only(
                       left: 40,
                       right: 40,
-                      bottom: 25,
-                      top: MediaQuery.of(context).size.height * 0.055),
+                      bottom: 25),
                   child: WordDetailTile(word),
                 ),
                 Padding(

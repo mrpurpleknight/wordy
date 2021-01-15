@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:wordy/providers/search_bar_status.dart';
-import 'package:wordy/providers/word.dart';
+import 'package:wordy/providers/word_manager.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/widgets/mixins/snackbar_mixin.dart';
 import 'package:wordy/widgets/overlays/overlay_position.dart';
@@ -15,7 +15,7 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> with SnackBarMixin {
   void goToDetail(String name) {
-    Word.byName(name).then((value) {
+    WordManager.instance.getWordFromName(name).then((value) {
       if (value != null) {
         Navigator.of(context)
             .pushNamed(WordDetailScreen.routeName, arguments: value);

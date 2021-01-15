@@ -49,7 +49,7 @@ class MainScreen extends StatelessWidget {
                       children: [
                         Container(
                           margin: EdgeInsets.only(
-                              top: size.height * 0.035, left: 30, right: 30),
+                              top: size.height * 0.04, left: 30, right: 30),
                           child: Text(
                             'Start your research',
                             style: TextStyle(
@@ -102,7 +102,7 @@ class MainScreen extends StatelessWidget {
                         ),
                         Container(
                             margin: EdgeInsets.only(
-                              top: size.height * 0.16,
+                              top: size.height * 0.125,
                               left: 32,
                             ),
                             child: ShowcaseHeader()),

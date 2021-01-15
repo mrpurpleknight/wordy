@@ -34,10 +34,8 @@ class _RandomToolBarState extends AbstractToolbarState<RandomToolbar> {
     Size size = MediaQuery.of(context).size;
     ConnectivityService service = Provider.of<ConnectivityService>(context);
     if (service.actualState == ConnectivityStatus.on) {
-      if (_newFuture == null) {
-        _newFuture = Provider.of<Future<Word>>(context);
-        _oldFuture = _newFuture;
-      }
+        _newFuture ??= Provider.of<Future<Word>>(context);
+        _oldFuture ??= _newFuture;
       return Container(
         margin: EdgeInsets.only(left: size.width * 0.6, top: 10),
         child: FutureBuilder<Word>(

@@ -37,10 +37,9 @@ class _WordTileState extends AbstractWordTileState<RandomWordTile>
         const EdgeInsets.only(top: 50, right: 25, left: 25, bottom: 25);
 
     if (service.actualState == ConnectivityStatus.on) {
-      if (_newFuture == null) {
-        _newFuture = Provider.of<Future<Word>>(context);
-        _oldFuture = _newFuture;
-      }
+      _newFuture ??= Provider.of<Future<Word>>(context);
+      _oldFuture ??= _newFuture;
+
       return getContainer(
         height: height,
         width: width,
@@ -49,37 +48,29 @@ class _WordTileState extends AbstractWordTileState<RandomWordTile>
           future: _newFuture,
           builder: (context, snapshot) {
             if (snapshot.hasError ||
-                snapshot.connectionState == ConnectionState.waiting) {
+                snapshot.connectionState == ConnectionState.waiting)
               return loadingState();
-            } else {
+            else
               return getTileLayout(snapshot.data);
-            }
           },
         ),
       );
-    } else {
-      if (_oldFuture == null)
-        return getContainer(
-            child: loadingState(),
-            padding: padding,
-            height: height,
-            width: width);
-      else
-        return getContainer(
-            child: FutureBuilder<Word>(
-              future: _oldFuture,
-              builder: (context, snapshot) {
-                if (snapshot.hasError ||
-                    snapshot.connectionState == ConnectionState.waiting) {
-                  return loadingState();
-                } else {
-                  return getTileLayout(snapshot.data);
-                }
-              },
-            ),
-            padding: padding,
-            height: height,
-            width: width);
-    }
+    } else
+      return getContainer(
+          child: (_oldFuture == null)
+              ? loadingState()
+              : FutureBuilder<Word>(
+                  future: _oldFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasError ||
+                        snapshot.connectionState == ConnectionState.waiting)
+                      return loadingState();
+                    else
+                      return getTileLayout(snapshot.data);
+                  },
+                ),
+          padding: padding,
+          height: height,
+          width: width);
   }
 }

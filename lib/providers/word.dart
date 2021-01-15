@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:wordy/services/decoder/enum_string_converter.dart';
 import 'package:wordy/services/decoder/part_of_speech.dart';
-import 'package:wordy/services/http_words.dart';
 
 class Word extends Equatable {
   final String _name;
@@ -26,13 +25,9 @@ class Word extends Equatable {
         this._examplePhrase = examplePhrase;
 
   String get name => _name;
-
   String get partOfSpeech => EnumStringConverter.enumToString(_partOfSpeech);
-
   PartOfSpeech get partOfSpeechEnum => _partOfSpeech;
-
   String get definition => _definition;
-
   String get examplePhrase => _examplePhrase;
 
   String get partOfSpeechAbbreviation {
@@ -59,22 +54,6 @@ class Word extends Equatable {
         return EnumStringConverter.enumToString(_partOfSpeech);
         break;
     }
-  }
-
-  static Future<Word> random() async {
-    return HttpWords.instance.randomWord;
-  }
-
-  static Stream<Word> randomList() async* {
-    yield* HttpWords.instance.getRandomWords();
-  }
-
-  static Future<Word> byName(String name) async {
-    return HttpWords.instance.getWordFromName(name);
-  }
-
-  static Future<List<Word>> suggestions(String name, int limit) async {
-    return HttpWords.instance.getSuggestionsFromWordName(name, limit);
   }
 
   factory Word.fromJson(Map<String, dynamic> json) {

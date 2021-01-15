@@ -8,7 +8,7 @@ mixin SnackBarMixin<T> {
       isVisible = true;
       Scaffold.of(context).showSnackBar(
         SnackBar(
-          key: Key(text),
+          key: GlobalKey(),
           duration: const Duration(seconds: 3),
           content: Text(
             text,
