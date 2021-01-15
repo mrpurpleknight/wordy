@@ -89,7 +89,7 @@ class HttpWords {
           'Content-Type': 'application/json; charset=UTF-8',
         },
       );
-    } on IOException {
+    } on Exception {
       throw FailureException('No Internet connection');
     }
 

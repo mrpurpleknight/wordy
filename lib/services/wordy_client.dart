@@ -1,4 +1,5 @@
 import 'package:http/http.dart' as http;
+import 'package:wordy/services/failure_exception.dart';
 
 class WordyClient {
   http.Client _client;
@@ -7,10 +8,14 @@ class WordyClient {
 
   Future<http.Response> getRequest(
       String url, Map<String, String> headers) async {
-    if (headers != null) {
-      return _client.get(url, headers: headers);
-    } else {
-      return _client.get(url);
+    try {
+      if (headers != null) {
+        return _client.get(url, headers: headers);
+      } else {
+        return _client.get(url);
+      }
+    } catch (e) {
+      throw FailureException('No Internet connection');
     }
   }
 

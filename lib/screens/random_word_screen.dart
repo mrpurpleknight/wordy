@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:wordy/providers/connectivity_service.dart';
 import 'package:wordy/providers/random_word_manager.dart';
 import 'package:wordy/widgets/mixins/gradient_mixin.dart';
-import 'package:wordy/widgets/words/word_tile.dart';
+import 'package:wordy/widgets/words/random_word_tile.dart';
 import 'package:wordy/widgets/tool_bar.dart';
 
 import '../constants.dart';
@@ -45,8 +45,8 @@ class _RandomWordScreenState extends State<RandomWordScreen>
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        top: 70, left: 40, right: 40, bottom: 25),
-                    child: WordTile(),
+                        top: 45, left: 40, right: 40, bottom: 25),
+                    child: RandomWordTile(),
                   ),
                   ToolBar(),
                 ],
