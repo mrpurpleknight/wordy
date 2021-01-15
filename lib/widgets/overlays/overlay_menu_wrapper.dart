@@ -31,7 +31,7 @@ class OverlayMenuWrapper extends StatelessWidget {
               fontFamily: 'Merriweather',
               fontWeight: FontWeight.bold,
               fontSize: 18.5,
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black,
             ),
           ),
           trailingIcon: Icon(
@@ -49,7 +49,7 @@ class OverlayMenuWrapper extends StatelessWidget {
               fontFamily: 'Merriweather',
               fontWeight: FontWeight.bold,
               fontSize: 18.5,
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black,
             ),
           ),
           trailingIcon: Icon(

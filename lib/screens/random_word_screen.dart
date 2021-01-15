@@ -51,8 +51,8 @@ class _RandomWordScreenState extends State<RandomWordScreen>
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 45, left: 40, right: 40, bottom: 25),
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.04, left: 40, right: 40, bottom: 25),
                     child: RandomWordTile(),
                   ),
                   RandomToolbar(),

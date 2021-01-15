@@ -44,8 +44,11 @@ class _WordDetailScreenState extends State<WordDetailScreen>
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(
-                      left: 40, right: 40, bottom: 25, top: 20),
+                  padding: EdgeInsets.only(
+                      left: 40,
+                      right: 40,
+                      bottom: 25,
+                      top: MediaQuery.of(context).size.height * 0.055),
                   child: WordDetailTile(word),
                 ),
                 Padding(
