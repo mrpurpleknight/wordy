@@ -42,12 +42,10 @@ class WordsRepository extends Repository<Word>{
     return toReturn;
   }
 
-
   @override
   void delete(Word word) async{
     try {
       final File file = await _getFileLocationFromWord(word);
-
       file.delete();
     }
     catch(e) {
@@ -59,7 +57,6 @@ class WordsRepository extends Repository<Word>{
   void write(Word word) async{
     try {
       final File file = await _getFileLocationFromWord(word);
-
       return file.writeAsStringSync(jsonEncode(word));
     }
     catch(e) {

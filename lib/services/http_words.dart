@@ -31,7 +31,14 @@ class HttpWords {
     return _instance;
   }
 
-  Future<Word> get randomWord async {
+  Future<List<String>> _getSuggestionsName(String wordName, int limit) async {
+    String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
+    http.Response response =
+        await _suggestionsClient.getRequest(preparedUrl, null);
+    return _suggestionsDecoder.decode(response.body);
+  }
+
+  Future<Word> getRandomWord() async {
     Word toReturn;
     try {
       while (toReturn == null) {
@@ -49,7 +56,7 @@ class HttpWords {
 
   Stream<Word> getRandomWords() async* {
     while (true) {
-      Word toReturn = await randomWord;
+      Word toReturn = await getRandomWord();
       yield toReturn;
     }
   }
@@ -58,11 +65,8 @@ class HttpWords {
       String wordName, int limit) async {
     List<Word> toReturn = [];
     try {
-      String preparedUrl = '${suggestionWordUrl}sp=$wordName*&max=$limit';
-      http.Response response =
-          await _suggestionsClient.getRequest(preparedUrl, null);
       List<String> suggestionStringList =
-          _suggestionsDecoder.decode(response.body);
+          await _getSuggestionsName(wordName, limit);
       if (suggestionStringList != null) {
         for (int i = 0; i < suggestionStringList.length; i++) {
           Word toInsert =

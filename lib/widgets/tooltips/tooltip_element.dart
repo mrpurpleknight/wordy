@@ -22,7 +22,6 @@ class TooltipElement extends StatelessWidget {
     _target = target ?? Container();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Showcase.withWidget(
@@ -36,6 +35,4 @@ class TooltipElement extends StatelessWidget {
       child: _target,
     );
   }
-
-
 }

@@ -9,11 +9,10 @@ class WordyClient {
   Future<http.Response> getRequest(
       String url, Map<String, String> headers) async {
     try {
-      if (headers != null) {
+      if (headers != null)
         return _client.get(url, headers: headers);
-      } else {
+      else
         return _client.get(url);
-      }
     } catch (e) {
       throw FailureException('No Internet connection');
     }

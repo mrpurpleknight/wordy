@@ -22,7 +22,7 @@ class _WordListTileState extends AbstractTileState<WordListTile> {
       child: Container(
         alignment: Alignment.center,
         height: 70,
-        decoration: getContainerDecoration(1.7, Offset(1, 3)),
+        decoration: getContainerDecoration(1.4, Offset(1, 3)),
         child: ListTile(
           title: Row(
             children: [

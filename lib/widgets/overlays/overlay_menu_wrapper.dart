@@ -39,7 +39,7 @@ class OverlayMenuWrapper extends StatelessWidget {
             color: Colors.black.withOpacity(0.7),
           ),
           onPressed: () =>
-              Provider.of<Words>(context, listen: false).sortByAlphabetical(),
+              Words.instance.sortByAlphabetical(),
         ),
         FocusedMenuItem(
           backgroundColor: Colors.white,
@@ -57,7 +57,7 @@ class OverlayMenuWrapper extends StatelessWidget {
             color: Colors.black.withOpacity(0.7),
           ),
           onPressed: () =>
-              Provider.of<Words>(context, listen: false).sortByPartOfSpeech(),
+              Words.instance.sortByPartOfSpeech(),
         ),
       ],
       onPressed: () {},

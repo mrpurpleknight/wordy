@@ -47,7 +47,7 @@ main() {
   group('getRandomWord', () {
     test('Test random word', () {
       Word word;
-      HttpWords.instance.randomWord.then((value) {
+      HttpWords.instance.getRandomWord().then((value) {
         word = value;
         expect(word.name, isA<String>());
 

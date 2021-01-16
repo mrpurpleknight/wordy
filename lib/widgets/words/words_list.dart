@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/providers/words.dart';
 import 'package:wordy/widgets/words/word_list_tile.dart';
-import 'package:provider/provider.dart';
 
 class WordsList extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class WordsList extends StatefulWidget {
 class _WordsListState extends State<WordsList> {
   @override
   Widget build(BuildContext context) {
-    Words words = Provider.of<Words>(context);
+    Words words = Words.instance;
     return SliverList(
       delegate: SliverChildBuilderDelegate(
         (BuildContext context, int index) {

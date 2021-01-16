@@ -28,54 +28,55 @@ class WordsListScreen extends StatelessWidget {
         body: Container(
           color: Theme.of(context).backgroundColor,
           child: CustomScrollView(
-            slivers: <Widget>[
+            slivers: [
               SliverAppBar(
-                toolbarHeight: 65,
-                  elevation: 8,
-                  forceElevated: true,
-                  shadowColor: Colors.black87,
+                  toolbarHeight: 66,
                   actions: [
-                    OverlayMenuWrapper(Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: Icon(
-                        Icons.sort_rounded,
-                        color: Colors.white,
-                        size: 30,
+                    OverlayMenuWrapper(
+                      Padding(
+                        padding: const EdgeInsets.only(right: 15, top: 3),
+                        child: Icon(
+                          Icons.sort_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
-                    )),
+                    ),
                   ],
                   pinned: false,
-                  centerTitle: true,
                   title: Row(
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(
-                        'Words',
-                        style: const TextStyle(
-                            fontFamily: 'Merriweather',
-                            fontWeight: FontWeight.w800,
-                            fontSize: 29,
-                            color: Colors.white),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          'Words',
+                          style: const TextStyle(
+                              fontFamily: 'Merriweather',
+                              fontWeight: FontWeight.w800,
+                              fontSize: 32,
+                              color: Colors.white),
+                        ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 2),
+                        padding: const EdgeInsets.only(left: 12, bottom: 5),
                         child: SvgPicture.asset(
                           'assets/images/vocabulary.svg',
                           color: Colors.white,
-                          width: 30,
-                          height: 30,
+                          width: 35,
+                          height: 35,
                         ),
                       ),
                     ],
                   ),
-                  backgroundColor: Colors.black26,
+                  backgroundColor: Theme.of(context).backgroundColor,
                   snap: false,
                   flexibleSpace: FlexibleSpaceBar(
                     collapseMode: CollapseMode.parallax,
                   )),
               SliverPadding(
                   padding: const EdgeInsets.only(
-                      top: 12, right: 9, bottom: 9, left: 9),
+                      top: 3, right: 9, bottom: 9, left: 9),
                   sliver: WordsList()),
             ],
           ),

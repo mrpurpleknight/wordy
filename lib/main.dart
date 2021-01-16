@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:splashscreen/splashscreen.dart';
 import 'package:wordy/constants.dart';
 import 'package:wordy/providers/connectivity_service.dart';
-import 'package:wordy/screens/main_page_view.dart';
+import 'package:wordy/screens/page/main_page_view.dart';
 import 'package:wordy/screens/word_detail_screen.dart';
 import 'package:wordy/screens/words_list_screen.dart';
 import 'package:wordy/providers/word_manager.dart';

@@ -35,12 +35,10 @@ class SearchBarStatus extends ChangeNotifier {
   }
 
   void _textControllerListener() {
-    if (_controller.text != '' && _focusNode.hasFocus) {
+    if (_controller.text != '' && _focusNode.hasFocus)
       setOpen(true);
-    }
-    if (_controller.text == '') {
+    if (_controller.text == '')
       setOpen(false);
-    }
   }
 
   void _focusNodeListener() {

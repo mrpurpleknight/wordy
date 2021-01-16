@@ -18,7 +18,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Words words = Provider.of<Words>(context);
+    final Words words = Words.instance;
     return TooltipWrapper(
       keyList: [_one],
       child: FocusWatcher(
