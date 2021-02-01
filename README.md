@@ -1,4 +1,4 @@
-# learn_words
+# wordy
 
 A new Flutter project.
 

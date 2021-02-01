@@ -1,19 +1,91 @@
 import 'package:flutter/material.dart';
+import 'package:wordy/repository/words_repository.dart';
+import 'package:wordy/services/order/list/word_ordered_list.dart';
 
 import 'word.dart';
 
 class Words with ChangeNotifier {
   List<Word> _wordsList;
+  WordOrderedList _orderedList;
+  final WordsRepository _repository;
 
-  Words() : _wordsList = [];
+  static Words _instance;
 
-  List<Word> get wordsList => _wordsList;
+  Words._internal() : _repository = WordsRepository.instance {
+    _repository.readAll().then((value) {
+      _wordsList = value;
+      _orderedList = WordOrderedList(toOrder: _wordsList);
+      _orderedList.alphabeticalOrder();
+      notifyListeners();
+    });
+  }
+
+  static Words get instance {
+    if (_instance == null) _instance = Words._internal();
+    return _instance;
+  }
+
+  int get size {
+    if (_wordsList == null) return 0;
+    return _wordsList.length;
+  }
+
+  Word get(int index) {
+    return _wordsList.elementAt(index);
+  }
+
+  Word getByName(String name) {
+    return _wordsList.firstWhere((element) => element.name == name);
+  }
+
+  List<Word> getList() {
+    return _wordsList;
+  }
+
+  List<Word> getOrderedList() {
+    return _orderedList.toOrder;
+  }
+
+  List<Word> getLast5Word() {
+    if (size > 5) {
+      return _wordsList.sublist(size - 5);
+    }
+    if (_wordsList == null) return [];
+
+    return _wordsList;
+  }
 
   void addWord(Word word) {
-    _wordsList.add(word);
+    if (!this.isPresent(word)) {
+      _wordsList.add(word);
+      notifyListeners();
+      _repository.write(word);
+    }
   }
 
   void removeWord(Word word) {
     _wordsList.removeWhere((element) => element.name == word.name);
+    _repository.delete(word);
+    notifyListeners();
+  }
+
+  bool isPresent(Word word) {
+    return _wordsList.contains(word);
+  }
+
+  bool isEmpty() {
+    if (_wordsList != null) return _wordsList.isEmpty;
+
+    return false;
+  }
+
+  void sortByAlphabetical() {
+    _orderedList.alphabeticalOrder();
+    notifyListeners();
+  }
+
+  void sortByPartOfSpeech() {
+    _orderedList.partOfSpeechOrder();
+    notifyListeners();
   }
 }
